@@ -19,6 +19,7 @@ struct ParkingSpaceGrid: View {
     }
 }
 
+
 struct ParkingSpaceGrid_Previews: PreviewProvider {
     static var previews: some View {
         ParkingSpaceGrid()

@@ -22,6 +22,7 @@ struct ShortTermParkerLogin: View {
     }
 }
 
+
 struct ShortTermParkerLogin_Previews: PreviewProvider {
     static var previews: some View {
         ShortTermParkerLogin()

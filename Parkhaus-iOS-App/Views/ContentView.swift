@@ -19,6 +19,7 @@ struct ContentView: View {
         }
     }
 
+    
     // ViewModel
     private func loadData() {
         guard let url = URL(string: "http://127.0.0.1:8080/") else {
