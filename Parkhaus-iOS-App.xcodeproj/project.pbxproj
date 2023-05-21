@@ -16,7 +16,6 @@
 		7C216B1A2A17F878006C9947 /* LongTermParkerLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B192A17F878006C9947 /* LongTermParkerLogin.swift */; };
 		7C216B1C2A17F88E006C9947 /* ParkingSpaceGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B1B2A17F88E006C9947 /* ParkingSpaceGrid.swift */; };
 		7C216B1E2A17FAB8006C9947 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B1D2A17FAB8006C9947 /* Data.swift */; };
-		7C216B222A18113B006C9947 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B212A18113B006C9947 /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +29,6 @@
 		7C216B192A17F878006C9947 /* LongTermParkerLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTermParkerLogin.swift; sourceTree = "<group>"; };
 		7C216B1B2A17F88E006C9947 /* ParkingSpaceGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceGrid.swift; sourceTree = "<group>"; };
 		7C216B1D2A17FAB8006C9947 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		7C216B212A18113B006C9947 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +61,6 @@
 		7C216B032A17CE86006C9947 /* Parkhaus-iOS-App */ = {
 			isa = PBXGroup;
 			children = (
-				7C216B202A181117006C9947 /* Test */,
 				7C216B142A17F7B7006C9947 /* Components */,
 				7C216B132A17F79E006C9947 /* Views */,
 				7C216B122A17F78B006C9947 /* Navigation */,
@@ -107,14 +104,6 @@
 			children = (
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		7C216B202A181117006C9947 /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				7C216B212A18113B006C9947 /* API.swift */,
-			);
-			path = Test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,7 +182,6 @@
 				7C216B052A17CE86006C9947 /* Parkhaus_iOS_AppApp.swift in Sources */,
 				7C216B1C2A17F88E006C9947 /* ParkingSpaceGrid.swift in Sources */,
 				7C216B1A2A17F878006C9947 /* LongTermParkerLogin.swift in Sources */,
-				7C216B222A18113B006C9947 /* API.swift in Sources */,
 				7C216B182A17F866006C9947 /* ShortTermParkerLogin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

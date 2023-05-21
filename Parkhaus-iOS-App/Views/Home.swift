@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct Home: View {
+    @State var LongTermParkerLoginLbl = "Long Term Parker"
+    @State var ShortTermParkerLoginLbl = "Short Term Parker"
+    
+    
+    
+    var NParkingSpaces = 0
+    var RParkingSpaces = 0
     
     var body: some View {
+        
+        
+//        var num1 = 0
+//        var num2 = 0
+        
         
         NavigationView() {
             
@@ -18,17 +30,35 @@ struct Home: View {
                 VStack {
                     
                     NavigationLink(destination: LongTermParkerLogin()) {
-                        Text("Long Term Parker")
+                        Text(LongTermParkerLoginLbl+" \(RParkingSpaces)")
                     }
                     .bold()
                     .frame(height: 55).border(Color.red)
+                    .onAppear() {
+                        print("\(NParkingSpaces)")
+//                        var result = Api().getter()
+//                        print("\(result.0)")
+//                        load()
+//                        num1 = Api().freeNormalParkingSpaces
+//                        num2 = Api().getData()
+                        Api().getData()
+                    }
                     
                     NavigationLink(destination: ShortTermParkerLogin()) {
-                        Text("Short Term Parker")
+                        Text("Short Term Parker \(NParkingSpaces)")
                     }
                     .bold()
                     .frame(height: 55).border(Color.red)
                     .padding(50)
+                    
+                    
+                    Button("Button") {
+//                        load()
+//                        num1 = Api().getDataWithValues()
+//                        print("Test: \(num1)")
+//                        self.LongTermParkerLoginLbl = "\(num1)"
+                    }
+                    
                 }
                 
                 .navigationTitle("Home")
@@ -37,6 +67,10 @@ struct Home: View {
         
     }
 }
+
+//func load() {
+//    Api().getData()
+//}
 
 
 struct Home_Previews: PreviewProvider {
