@@ -10,68 +10,39 @@ import SwiftUI
 struct Home: View {
     @State var LongTermParkerLoginLbl = "Long Term Parker"
     @State var ShortTermParkerLoginLbl = "Short Term Parker"
-    
-    
-    
-    var NParkingSpaces = 0
-    var RParkingSpaces = 0
+    @StateObject var parkingSpaceModel = ParkingSpaceModel()
     
     var body: some View {
-        
-        
-//        var num1 = 0
-//        var num2 = 0
-        
-        
         NavigationView() {
-            
             ZStack {
-                
                 VStack {
-                    
-                    NavigationLink(destination: LongTermParkerLogin()) {
-                        Text(LongTermParkerLoginLbl+" \(RParkingSpaces)")
+                    if parkingSpaceModel.dataIsLoaded {
+                        NavigationLink(destination: LongTermParkerLogin()) {
+                            Text(LongTermParkerLoginLbl+" \(parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces)")
+                        }
+                        .bold()
+                        .frame(height: 55).border(Color.red)
+                   
+                        NavigationLink(destination: ShortTermParkerLogin()) {
+                            Text("Short Term Parker \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
+                        }
+                        .bold()
+                        .frame(height: 55).border(Color.red)
+                        .padding(50)
+                        
+                    } else {
+                        Text("Loading parking spot data...")
                     }
-                    .bold()
-                    .frame(height: 55).border(Color.red)
-                    .onAppear() {
-                        print("\(NParkingSpaces)")
-//                        var result = Api().getter()
-//                        print("\(result.0)")
-//                        load()
-//                        num1 = Api().freeNormalParkingSpaces
-//                        num2 = Api().getData()
-                        Api().getData()
-                    }
-                    
-                    NavigationLink(destination: ShortTermParkerLogin()) {
-                        Text("Short Term Parker \(NParkingSpaces)")
-                    }
-                    .bold()
-                    .frame(height: 55).border(Color.red)
-                    .padding(50)
-                    
-                    
-                    Button("Button") {
-//                        load()
-//                        num1 = Api().getDataWithValues()
-//                        print("Test: \(num1)")
-//                        self.LongTermParkerLoginLbl = "\(num1)"
-                    }
-                    
                 }
-                
+               
                 .navigationTitle("Home")
+            } .task {
+                await parkingSpaceModel.fetchParkingSpaceCounts()
             }
         }
         
     }
 }
-
-//func load() {
-//    Api().getData()
-//}
-
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {

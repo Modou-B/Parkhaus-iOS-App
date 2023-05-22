@@ -15,7 +15,7 @@
 		7C216B182A17F866006C9947 /* ShortTermParkerLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B172A17F866006C9947 /* ShortTermParkerLogin.swift */; };
 		7C216B1A2A17F878006C9947 /* LongTermParkerLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B192A17F878006C9947 /* LongTermParkerLogin.swift */; };
 		7C216B1C2A17F88E006C9947 /* ParkingSpaceGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B1B2A17F88E006C9947 /* ParkingSpaceGrid.swift */; };
-		7C216B1E2A17FAB8006C9947 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B1D2A17FAB8006C9947 /* Data.swift */; };
+		7C216B1E2A17FAB8006C9947 /* ParkingSpaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B1D2A17FAB8006C9947 /* ParkingSpaceModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +28,7 @@
 		7C216B172A17F866006C9947 /* ShortTermParkerLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortTermParkerLogin.swift; sourceTree = "<group>"; };
 		7C216B192A17F878006C9947 /* LongTermParkerLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTermParkerLogin.swift; sourceTree = "<group>"; };
 		7C216B1B2A17F88E006C9947 /* ParkingSpaceGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceGrid.swift; sourceTree = "<group>"; };
-		7C216B1D2A17FAB8006C9947 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		7C216B1D2A17FAB8006C9947 /* ParkingSpaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +94,7 @@
 				7C216B172A17F866006C9947 /* ShortTermParkerLogin.swift */,
 				7C216B192A17F878006C9947 /* LongTermParkerLogin.swift */,
 				7C216B1B2A17F88E006C9947 /* ParkingSpaceGrid.swift */,
-				7C216B1D2A17FAB8006C9947 /* Data.swift */,
+				7C216B1D2A17FAB8006C9947 /* ParkingSpaceModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,7 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C216B1E2A17FAB8006C9947 /* Data.swift in Sources */,
+				7C216B1E2A17FAB8006C9947 /* ParkingSpaceModel.swift in Sources */,
 				7C216B072A17CE86006C9947 /* ContentView.swift in Sources */,
 				7C216B162A17F821006C9947 /* Home.swift in Sources */,
 				7C216B052A17CE86006C9947 /* Parkhaus_iOS_AppApp.swift in Sources */,
@@ -318,6 +318,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -346,6 +347,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
