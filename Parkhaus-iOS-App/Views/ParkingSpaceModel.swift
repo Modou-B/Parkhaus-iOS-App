@@ -18,17 +18,17 @@ class ParkingSpaceModel: ObservableObject {
     
     @MainActor
     func fetchParkingSpaceCounts()  async {
-        guard let url = URL(string: "http://127.0.0.1:8080/") else {
-            return
-        }
-        
-        do {
-            let (responseData, _) = try await URLSession.shared.data(from: url)
-            
-            parkingSpaces = try JSONDecoder().decode(ParkingSpaces.self, from: responseData)
+//        guard let url = URL(string: "http://127.0.0.1:8080/") else {
+//            return
+//        }
+//
+//        do {
+//            let (responseData, _) = try await URLSession.shared.data(from: url)
+//
+//            parkingSpaces = try JSONDecoder().decode(ParkingSpaces.self, from: responseData)
             dataIsLoaded = true
-        } catch {
-            print("Invalid Response Data")
-        }
+//        } catch {
+//            print("Invalid Response Data")
+//        }
     }
 }

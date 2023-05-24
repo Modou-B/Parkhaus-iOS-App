@@ -9,30 +9,63 @@ import SwiftUI
 
 struct ShortTermParkerLogin: View {
     @State private var licensePlate = ""
+    @State private var wrongLicensePlate: Float  = 0
+    @State private var showingLoginScreen = false
+    
     
     var body: some View {
-        VStack {
-            TextField("License Plate", text: self.$licensePlate)
-                .frame(height: 50)
-                .padding(.horizontal)
-                .overlay {
-                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(.blue, lineWidth: 2)
-                   }
-            
-            
-            
-            Text(" ")
-            NavigationLink(destination: ParkingSpaceGrid()) {
-                Text("Validate data")
+        NavigationStack {
+            ZStack {
+                Color.blue
+                    .ignoresSafeArea()
+                Circle()
+                    .scale(1.7)
+                    .foregroundColor(.white.opacity(0.15))
+                Circle()
+                    .scale(1.35)
+                    .foregroundColor(.white)
+                
+                
+                VStack {
+                    TextField("License Plate", text: $licensePlate)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(Color.black.opacity(0.05))
+                        .cornerRadius(10)
+                    
+                    
+                    Spacer()
+                        .frame(height: 30)
+                    
+                    Button("Login") {
+                        checkLicenseIsEmpty(licensePlate: licensePlate)
+                        }
+                    .foregroundColor(.white)
+                    .frame(width: 300, height: 50)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .navigationDestination(
+                        isPresented: $showingLoginScreen) {
+                            ParkingSpaceGrid()
+                            
+                        }
+                }
+//                .navigationTitle("Short Term Parker")
+//                .navigationBarHidden(true)
             }
-            .buttonStyle(.borderedProminent)
-            .foregroundColor(Color.white)
-            .background(Color.blue)
-            .cornerRadius(5)
         }
-        .navigationTitle("Short Term Parker")
     }
+    
+    
+    func checkLicenseIsEmpty(licensePlate: String) {
+            if licensePlate.isEmpty {
+                wrongLicensePlate = 2
+            } else {
+                wrongLicensePlate = 0
+                showingLoginScreen = true
+            }
+    }
+
 }
 
 

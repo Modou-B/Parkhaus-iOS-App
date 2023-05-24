@@ -14,48 +14,70 @@ struct Home: View {
     @State var LongTermParkingSpacesLbl = "Free Long Term Parking Spaces:"
     @State var ShortTermParkingSpacesLbl = "Free Short Term Parking Spaces:"
     
+    
+    //Todo: $showingLoginScreen hinzufügen
+    @State private var showingLongTermLoginScreen = false
+    @State private var showingShortTermLoginScreen = false
     @StateObject var parkingSpaceModel = ParkingSpaceModel()
     
     
     
     
     var body: some View {
-        NavigationView() {
+        NavigationStack() {
             ZStack {
-                VStack {
-                    if parkingSpaceModel.dataIsLoaded {
-                        Text("Free Long Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces)")
-                        Text("Free Short Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
-                        Text(" ")
-                        Text(" ")
-                        Text(" ")
+                ZStack {
+                    Color.blue
+                        .ignoresSafeArea()
+                    Circle()
+                        .scale(1.7)
+                        .foregroundColor(.white.opacity(0.15))
+                    Circle()
+                        .scale(1.35)
+                        .foregroundColor(.white)
+                    
+                    
+                    VStack {
+                        if parkingSpaceModel.dataIsLoaded {
+                            Text("Free Long Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces)")
 
-                        
-                        
-                        
-                        
-                        NavigationLink(destination: LongTermParkerLogin()) {
-                            Text(LongTermParkerLoginLbl)
+
+                            Text("Free Short Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
+                            
+                            Spacer()
+                                .frame(height: 50)
+
+                            Button(LongTermParkerLoginLbl) {
+                                showingLongTermLoginScreen = true
+                                }
+                            .foregroundColor(.black)
+                            .frame(width: 300, height: 50)
+                            .background(Color.gray.opacity(0.5))
+                            .cornerRadius(10)
+                            .navigationDestination(
+                                isPresented: $showingLongTermLoginScreen) {
+                                    LongTermParkerLogin()
+                                }
+                            
+                            
+                            Button(ShortTermParkerLoginLbl) {
+                                showingShortTermLoginScreen = true
+                                }
+                            .foregroundColor(.black)
+                            .frame(width: 300, height: 50)
+                            .background(Color.gray.opacity(0.5))
+                            .cornerRadius(10)
+                            .navigationDestination(
+                                isPresented: $showingShortTermLoginScreen) {
+                                    ShortTermParkerLogin()
+                                }
+                        } else {
+                            Text("Loading parking spot data...")
                         }
-                        .bold()
-                        .padding(.horizontal)
-                        .buttonStyle(.bordered)
-                        
-                        
-                        NavigationLink(destination: ShortTermParkerLogin()) {
-                            Text(ShortTermParkerLoginLbl)
-                        }
-                        .bold()
-                        .padding(.horizontal)
-                        .buttonStyle(.bordered)
-                           
-                        
-                    } else {
-                        Text("Loading parking spot data...")
+
                     }
-
+                    .navigationTitle("Home")
                 }
-                .navigationTitle("Home")
                 
             } .task {
                 await parkingSpaceModel.fetchParkingSpaceCounts()
