@@ -31,6 +31,7 @@ struct ShortTermParkerLogin: View {
             .background(Color.blue)
             .cornerRadius(5)
         }
+        .navigationTitle("Short Term Parker")
     }
 }
 

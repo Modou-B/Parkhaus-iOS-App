@@ -41,6 +41,7 @@ struct LongTermParkerLogin: View {
             .background(Color.blue)
             .cornerRadius(5)
         }
+        .navigationTitle("Long Term Parker")
     }
 }
 

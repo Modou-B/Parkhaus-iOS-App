@@ -53,8 +53,9 @@ struct Home: View {
                     } else {
                         Text("Loading parking spot data...")
                     }
+
                 }
-               
+                .navigationTitle("Home")
                 
             } .task {
                 await parkingSpaceModel.fetchParkingSpaceCounts()

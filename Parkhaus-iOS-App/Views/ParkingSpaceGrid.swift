@@ -45,7 +45,7 @@ struct ParkingSpaceGrid: View {
                         }
                     }
                 }
-                .navigationTitle("Sample Grids")
+                .navigationTitle("Parking Spaces")
                 .padding()
             }
         }}
