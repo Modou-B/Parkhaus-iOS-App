@@ -10,37 +10,55 @@ import SwiftUI
 struct Home: View {
     @State var LongTermParkerLoginLbl = "Long Term Parker"
     @State var ShortTermParkerLoginLbl = "Short Term Parker"
+    
+    @State var LongTermParkingSpacesLbl = "Free Long Term Parking Spaces:"
+    @State var ShortTermParkingSpacesLbl = "Free Short Term Parking Spaces:"
+    
     @StateObject var parkingSpaceModel = ParkingSpaceModel()
+    
+    
+    
     
     var body: some View {
         NavigationView() {
             ZStack {
                 VStack {
                     if parkingSpaceModel.dataIsLoaded {
+                        Text("Free Long Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces)")
+                        Text("Free Short Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
+                        Text(" ")
+                        Text(" ")
+                        Text(" ")
+
+                        
+                        
+                        
                         NavigationLink(destination: LongTermParkerLogin()) {
-                            Text(LongTermParkerLoginLbl+" \(parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces)")
+                            Text(LongTermParkerLoginLbl)
                         }
                         .bold()
-                        .frame(height: 55).border(Color.red)
-                   
+                        .padding(.horizontal)
+                        .buttonStyle(.bordered)
+                        
+                        
                         NavigationLink(destination: ShortTermParkerLogin()) {
-                            Text("Short Term Parker \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
+                            Text(ShortTermParkerLoginLbl)
                         }
                         .bold()
-                        .frame(height: 55).border(Color.red)
-                        .padding(50)
+                        .padding(.horizontal)
+                        .buttonStyle(.bordered)
+                           
                         
                     } else {
                         Text("Loading parking spot data...")
                     }
                 }
                
-                .navigationTitle("Home")
+                
             } .task {
                 await parkingSpaceModel.fetchParkingSpaceCounts()
             }
         }
-        
     }
 }
 

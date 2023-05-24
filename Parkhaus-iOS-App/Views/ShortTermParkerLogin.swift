@@ -13,11 +13,22 @@ struct ShortTermParkerLogin: View {
     var body: some View {
         VStack {
             TextField("License Plate", text: self.$licensePlate)
-                .frame(height: 55).border(Color.red)
+                .frame(height: 50)
+                .padding(.horizontal)
+                .overlay {
+                     RoundedRectangle(cornerRadius: 10)
+                        .stroke(.blue, lineWidth: 2)
+                   }
             
+            
+            Text(" ")
             NavigationLink(destination: ParkingSpaceGrid()) {
-                Text("Click here")
+                Text("Validate data")
             }
+            .buttonStyle(.borderedProminent)
+            .foregroundColor(Color.white)
+            .background(Color.blue)
+            .cornerRadius(5)
         }
     }
 }
