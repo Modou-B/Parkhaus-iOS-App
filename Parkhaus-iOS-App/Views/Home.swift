@@ -33,6 +33,7 @@ struct Home: View {
                         
                         
                         
+                        
                         NavigationLink(destination: LongTermParkerLogin()) {
                             Text(LongTermParkerLoginLbl)
                         }

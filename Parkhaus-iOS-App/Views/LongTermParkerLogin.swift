@@ -23,6 +23,7 @@ struct LongTermParkerLogin: View {
                    }
             
             
+            
             TextField("License Plate", text: self.$licensePlate)
                 .frame(height: 50)
                 .padding(.horizontal)

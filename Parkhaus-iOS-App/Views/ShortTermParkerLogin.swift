@@ -21,6 +21,7 @@ struct ShortTermParkerLogin: View {
                    }
             
             
+            
             Text(" ")
             NavigationLink(destination: ParkingSpaceGrid()) {
                 Text("Validate data")
