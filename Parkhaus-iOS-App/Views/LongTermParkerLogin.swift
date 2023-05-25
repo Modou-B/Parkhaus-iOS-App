@@ -16,6 +16,8 @@ struct LongTermParkerLogin: View {
     @State private var wrongLicensePlate: Float  = 0
     @State private var showingLoginScreen = false
     
+    @StateObject var longTermModel = LongTermModel()
+
     let date = Date()
     let df = DateFormatter()
     
@@ -72,7 +74,7 @@ struct LongTermParkerLogin: View {
                     
                     Button("Login") {
                         Task {
-                            await LongTermModel().LongTermCheckIn(licencePlate: licensePlate, username: username, password: password)
+                            await longTermModel.LongTermCheckIn(licencePlate: licensePlate, username: username, password: password)
                         }
                         
 //                        authenticateUser(username: username, password: password, licensePlate: licensePlate)

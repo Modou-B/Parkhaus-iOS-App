@@ -39,16 +39,9 @@ class LongTermModel: ObservableObject {
         print("TEST: \(licencePlate),\(username),\(password)")
 
         let body: [String: AnyHashable] = [
-            "longTermParkerId": 1,
+            "licencePlate": licencePlate,
             "username": username,
             "password": password,
-            "hasError": "",
-            "errorMessage": "",
-            "errorCode": "",
-//            "licencePlate": licencePlate,
-//            "arrivedAt": 1,
-//            "longTermParkerId": username,
-//            "password": password,
         ]
 //        print("TEST: \(licencePlate),\(username),\(password)")
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
