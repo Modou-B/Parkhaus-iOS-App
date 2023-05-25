@@ -16,8 +16,14 @@ struct LongTermParkerLogin: View {
     @State private var wrongLicensePlate: Float  = 0
     @State private var showingLoginScreen = false
     
+    let date = Date()
+    let df = DateFormatter()
+    
+    
+//    @StateObject var shortTermModel = ShortTermModel()
     
     var body: some View {
+//        df.dateStyle = DateFormatter.Style.short
         NavigationStack {
             ZStack {
                 Color.blue
@@ -65,7 +71,11 @@ struct LongTermParkerLogin: View {
                         .frame(height: 30)
                     
                     Button("Login") {
-                        authenticateUser(username: username, password: password, licensePlate: licensePlate)
+                        Task {
+                            await LongTermModel().LongTermCheckIn(licencePlate: licensePlate, username: username, password: password)
+                        }
+                        
+//                        authenticateUser(username: username, password: password, licensePlate: licensePlate)
                         }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
