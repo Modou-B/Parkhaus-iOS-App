@@ -74,10 +74,13 @@ struct LongTermParkerLogin: View {
                     
                     Button("Login") {
                         Task {
+//                            authenticateUser(username: username, password: password, licensePlate: licensePlate)
+                            
                             await longTermModel.LongTermCheckIn(licencePlate: licensePlate, username: username, password: password)
+                            showingLoginScreen = true
                         }
                         
-//                        authenticateUser(username: username, password: password, licensePlate: licensePlate)
+                        
                         }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)

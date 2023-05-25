@@ -12,6 +12,7 @@ struct ShortTermParkerLogin: View {
     @State private var wrongLicensePlate: Float  = 0
     @State private var showingLoginScreen = false
     
+    @StateObject var shortTermModel = ShortTermModel()
     
     var body: some View {
         NavigationStack {
@@ -37,9 +38,13 @@ struct ShortTermParkerLogin: View {
                     Spacer()
                         .frame(height: 30)
                     
+                    
                     Button("Login") {
-                        checkLicenseIsEmpty(licensePlate: licensePlate)
+//                        checkLicenseIsEmpty(licensePlate: licensePlate)
+                        Task {
+                            await shortTermModel.ShortTermCheckIn(licencePlate: licensePlate)
                         }
+                    }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
@@ -47,7 +52,6 @@ struct ShortTermParkerLogin: View {
                     .navigationDestination(
                         isPresented: $showingLoginScreen) {
                             ParkingSpaceGrid()
-                            
                         }
                 }
 //                .navigationTitle("Short Term Parker")
