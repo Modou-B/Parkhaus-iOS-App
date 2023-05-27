@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class AbstractApi: ObservableObject {
-    public func makeRequest(url: String, body: [String: AnyHashable], method: String, headers: [String: String]) async -> Data? {
+    public func makeRequest(url: String, body: [String: Any], method: String, headers: [String: String]) async -> Data? {
         guard let url = URL(string: url) else {
             return nil
         }
