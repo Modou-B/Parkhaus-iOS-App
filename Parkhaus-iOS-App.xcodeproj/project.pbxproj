@@ -19,6 +19,7 @@
 		7C216B1E2A17FAB8006C9947 /* ParkingSpaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B1D2A17FAB8006C9947 /* ParkingSpaceModel.swift */; };
 		7C808C092A201AB000373326 /* ShortTermModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C808C082A201AB000373326 /* ShortTermModel.swift */; };
 		7C808C0B2A220CD400373326 /* TestGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C808C0A2A220CD400373326 /* TestGrid.swift */; };
+		F975CAED2A222EE800A9BA0A /* ParkingSpotsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F975CAEB2A222EE800A9BA0A /* ParkingSpotsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		7C216B1D2A17FAB8006C9947 /* ParkingSpaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceModel.swift; sourceTree = "<group>"; };
 		7C808C082A201AB000373326 /* ShortTermModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortTermModel.swift; sourceTree = "<group>"; };
 		7C808C0A2A220CD400373326 /* TestGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGrid.swift; sourceTree = "<group>"; };
+		F975CAEB2A222EE800A9BA0A /* ParkingSpotsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParkingSpotsModel.swift; path = "../../../../Spryker-Einarbeitung-DemoShop/Neuer Ordner/ParkingSpotsModel.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		7C216B132A17F79E006C9947 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F975CAEB2A222EE800A9BA0A /* ParkingSpotsModel.swift */,
 				7C216B062A17CE86006C9947 /* ContentView.swift */,
 				7C216B152A17F821006C9947 /* Home.swift */,
 				7C216B172A17F866006C9947 /* ShortTermParkerLogin.swift */,
@@ -188,6 +191,7 @@
 				7C808C092A201AB000373326 /* ShortTermModel.swift in Sources */,
 				7C0F95272A1C147400C0E7AC /* LongTermModel.swift in Sources */,
 				7C216B1E2A17FAB8006C9947 /* ParkingSpaceModel.swift in Sources */,
+				F975CAED2A222EE800A9BA0A /* ParkingSpotsModel.swift in Sources */,
 				7C216B072A17CE86006C9947 /* ContentView.swift in Sources */,
 				7C216B162A17F821006C9947 /* Home.swift in Sources */,
 				7C216B052A17CE86006C9947 /* Parkhaus_iOS_AppApp.swift in Sources */,

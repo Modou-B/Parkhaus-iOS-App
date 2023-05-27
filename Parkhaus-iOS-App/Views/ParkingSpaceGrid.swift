@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ParkingSpaceGrid: View {
+    @StateObject var parkingSpotsModel = ParkingSpotsModel()
+
     private let data: [Int] = Array(1...180)
-        private let colors: [Color] = [.gray, .gray, .gray, .gray]
+    private let colors: [Color] = [.green, .red, .gray]
         
         // Flexible, custom amount of columns that fill the remaining space
         private let numberColumns = [
@@ -32,33 +34,49 @@ struct ParkingSpaceGrid: View {
             NavigationStack {
                 ZStack {
                     ZStack {
-                        Color.blue
-                            .ignoresSafeArea()
-                        Circle()
-                            .scale(1.7)
-                            .foregroundColor(.white.opacity(0.15))
-                        ScrollView {
-                            LazyVGrid(columns: adaptiveColumns, spacing: 20) {
-                                ForEach(data, id: \.self) { number in
-                                    ZStack {
-                                        Rectangle()
-                                            .frame(width: 50, height: 50)
-                                            .foregroundColor(colors[number%4])
-                                            .cornerRadius(30)
-                                        Text("\(number)")
-                                            .foregroundColor(.white)
-                                            .font(.system(size: 30, design: .rounded))
+                        if parkingSpotsModel.dataIsLoaded {
+                            Color.blue
+                                .ignoresSafeArea()
+                            Circle()
+                                .scale(1.7)
+                                .foregroundColor(.white.opacity(0.15))
+                            ScrollView {
+                                LazyVGrid(columns: adaptiveColumns, spacing: 20) {
+                                    ForEach(parkingSpotsModel.parkingSpotCollection.parkingSpots ?? [], id: \.id) { parkingSpot in
+                                        ZStack {
+                                            Rectangle()
+                                                .frame(width: 50, height: 50)
+                                                .foregroundColor(getColor(parkingSpot: parkingSpot))
+                                                .cornerRadius(30)
+                                            Text("\(Int(parkingSpot.id) ?? 0)")
+                                                .foregroundColor(.white)
+                                                .font(.system(size: 30, design: .rounded))
+                                        }
                                     }
                                 }
                             }
+                            .navigationTitle("Parking Spaces")
+                            .padding()
                         }
-                        .navigationTitle("Parking Spaces")
-                    .padding()
                     }
+                }.task {
+                    await parkingSpotsModel.fetchParkingSpots()
                 }
             }
 //            .navigationBarBackButtonHidden(true)
         }
+    
+    func getColor(parkingSpot: ParkingSpotsModel.ParkingSpot)->Color {
+        if parkingSpot.isFree == "0" {
+            return colors[1]
+        }
+        
+        if parkingSpot.reserved == "1" {
+            return colors[2]
+        }
+        
+        return colors[0]
+    }
 }
 
 
