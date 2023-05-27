@@ -10,9 +10,10 @@ import SwiftUI
 struct ShortTermParkerLogin: View {
     @State private var licensePlate = ""
     @State private var wrongLicensePlate: Float  = 0
-    @State private var showingLoginScreen = false
     
-    @StateObject var shortTermModel = ShortTermModel()
+    @AppStorage("ticket") var ticket: String?
+
+    @StateObject var checkInApi = CheckInApi()
     
     var body: some View {
         NavigationStack {
@@ -40,9 +41,13 @@ struct ShortTermParkerLogin: View {
                     
                     
                     Button("Login") {
-//                        checkLicenseIsEmpty(licensePlate: licensePlate)
+                        checkLicenseIsEmpty(licensePlate: licensePlate)
                         Task {
-                            await shortTermModel.ShortTermCheckIn(licencePlate: licensePlate)
+                            await checkInApi.checkInShortTermParker(licensePlate: licensePlate)
+                            
+                            let jsonData = try JSONEncoder().encode(checkInApi.ticket)
+                           let jsonString = String(data: jsonData, encoding: .utf8)!
+                            ticket = jsonString
                         }
                     }
                     .foregroundColor(.white)
@@ -50,7 +55,7 @@ struct ShortTermParkerLogin: View {
                     .background(Color.blue)
                     .cornerRadius(10)
                     .navigationDestination(
-                        isPresented: $showingLoginScreen) {
+                        isPresented: $checkInApi.wasSuccessful) {
                             ParkingSpaceGrid()
                         }
                 }
@@ -66,12 +71,9 @@ struct ShortTermParkerLogin: View {
                 wrongLicensePlate = 2
             } else {
                 wrongLicensePlate = 0
-                showingLoginScreen = true
             }
     }
-
 }
-
 
 struct ShortTermParkerLogin_Previews: PreviewProvider {
     static var previews: some View {
