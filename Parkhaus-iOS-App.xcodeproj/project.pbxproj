@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7C0F95272A1C147400C0E7AC /* LongTermModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0F95262A1C147400C0E7AC /* LongTermModel.swift */; };
 		7C216B052A17CE86006C9947 /* Parkhaus_iOS_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B042A17CE86006C9947 /* Parkhaus_iOS_AppApp.swift */; };
 		7C216B072A17CE86006C9947 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B062A17CE86006C9947 /* ContentView.swift */; };
 		7C216B092A17CE86006C9947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C216B082A17CE86006C9947 /* Assets.xcassets */; };
@@ -17,13 +16,11 @@
 		7C216B1A2A17F878006C9947 /* LongTermParkerLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B192A17F878006C9947 /* LongTermParkerLogin.swift */; };
 		7C216B1C2A17F88E006C9947 /* ParkingSpaceGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B1B2A17F88E006C9947 /* ParkingSpaceGrid.swift */; };
 		7C216B1E2A17FAB8006C9947 /* ParkingSpaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B1D2A17FAB8006C9947 /* ParkingSpaceModel.swift */; };
-		7C808C092A201AB000373326 /* ShortTermModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C808C082A201AB000373326 /* ShortTermModel.swift */; };
 		7C808C0B2A220CD400373326 /* TestGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C808C0A2A220CD400373326 /* TestGrid.swift */; };
 		F975CAEF2A22382800A9BA0A /* ParkingSpotsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F975CAEE2A22382800A9BA0A /* ParkingSpotsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7C0F95262A1C147400C0E7AC /* LongTermModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTermModel.swift; sourceTree = "<group>"; };
 		7C216B012A17CE86006C9947 /* Parkhaus-iOS-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parkhaus-iOS-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C216B042A17CE86006C9947 /* Parkhaus_iOS_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parkhaus_iOS_AppApp.swift; sourceTree = "<group>"; };
 		7C216B062A17CE86006C9947 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -34,7 +31,6 @@
 		7C216B192A17F878006C9947 /* LongTermParkerLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTermParkerLogin.swift; sourceTree = "<group>"; };
 		7C216B1B2A17F88E006C9947 /* ParkingSpaceGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceGrid.swift; sourceTree = "<group>"; };
 		7C216B1D2A17FAB8006C9947 /* ParkingSpaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceModel.swift; sourceTree = "<group>"; };
-		7C808C082A201AB000373326 /* ShortTermModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortTermModel.swift; sourceTree = "<group>"; };
 		7C808C0A2A220CD400373326 /* TestGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGrid.swift; sourceTree = "<group>"; };
 		F975CAEE2A22382800A9BA0A /* ParkingSpotsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpotsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,8 +99,6 @@
 				7C216B192A17F878006C9947 /* LongTermParkerLogin.swift */,
 				7C216B1B2A17F88E006C9947 /* ParkingSpaceGrid.swift */,
 				7C216B1D2A17FAB8006C9947 /* ParkingSpaceModel.swift */,
-				7C0F95262A1C147400C0E7AC /* LongTermModel.swift */,
-				7C808C082A201AB000373326 /* ShortTermModel.swift */,
 				7C808C0A2A220CD400373326 /* TestGrid.swift */,
 				F975CAEE2A22382800A9BA0A /* ParkingSpotsModel.swift */,
 			);
@@ -188,8 +182,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C808C092A201AB000373326 /* ShortTermModel.swift in Sources */,
-				7C0F95272A1C147400C0E7AC /* LongTermModel.swift in Sources */,
 				7C216B1E2A17FAB8006C9947 /* ParkingSpaceModel.swift in Sources */,
 				F975CAEF2A22382800A9BA0A /* ParkingSpotsModel.swift in Sources */,
 				7C216B072A17CE86006C9947 /* ContentView.swift in Sources */,
