@@ -10,6 +10,9 @@ import SwiftUI
 struct ParkingSpaceGrid: View {
     @StateObject var parkingSpotsModel = ParkingSpotsModel()
 
+    @AppStorage("ticket") var ticket: String?
+
+    
     private let data: [Int] = Array(1...180)
     private let colors: [Color] = [.green, .red, .gray]
         
@@ -61,6 +64,7 @@ struct ParkingSpaceGrid: View {
                     }
                 }.task {
                     await parkingSpotsModel.fetchParkingSpots()
+                    print(ticket)
                 }
             }
 //            .navigationBarBackButtonHidden(true)

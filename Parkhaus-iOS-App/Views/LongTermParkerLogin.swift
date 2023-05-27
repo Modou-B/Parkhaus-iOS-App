@@ -14,16 +14,18 @@ struct LongTermParkerLogin: View {
     @State private var wrongUsername: Float = 0
     @State private var wrongPassword: Float  = 0
     @State private var wrongLicensePlate: Float  = 0
-    @State private var showingLoginScreen = false
-    
-    @StateObject var longTermModel = LongTermModel()
+    @State private var wasAuthenticationSuccessfull = false
 
+    @AppStorage("ticket") var ticket: String?
+
+    @StateObject var checkInApi = CheckInApi()
+
+    let wrongUsernameErrorCode: Int = 901
+    let wrongPasswordErrorCode: Int = 902
+    
     let date = Date()
     let df = DateFormatter()
-    
-    
-//    @StateObject var shortTermModel = ShortTermModel()
-    
+
     var body: some View {
 //        df.dateStyle = DateFormatter.Style.short
         NavigationStack {
@@ -74,22 +76,26 @@ struct LongTermParkerLogin: View {
                     
                     Button("Login") {
                         Task {
-//                            authenticateUser(username: username, password: password, licensePlate: licensePlate)
+                            resetErrors()
+                            await checkInApi.checkInLongTermParker(licensePlate: licensePlate, username: username, password: password)
                             
-                            await longTermModel.LongTermCheckIn(licencePlate: licensePlate, username: username, password: password)
-                            showingLoginScreen = true
+                            if authenticateLogin() {
+                                let jsonData = try JSONEncoder().encode(checkInApi.ticket)
+                               let jsonString = String(data: jsonData, encoding: .utf8)!
+                                ticket = jsonString
+                                
+                                self.wasAuthenticationSuccessfull = true
+                            }
                         }
-                        
-                        
-                        }
+                    }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
                     .cornerRadius(10)
                     .navigationDestination(
-                        isPresented: $showingLoginScreen) {
+                        isPresented: $wasAuthenticationSuccessfull) {
                             ParkingSpaceGrid()
-                            
+
                         }
 //                    NavigationLink(destination: ParkingSpaceGrid(), isActive: $showingLoginScreen) {
 //                    }
@@ -100,24 +106,30 @@ struct LongTermParkerLogin: View {
 //            .navigationBarHidden(true)
         }
     }
-    
-    func authenticateUser(username: String, password: String, licensePlate: String) {
-        if username.lowercased() == "modou" {
-            wrongUsername = 0
-            if password.lowercased() == "1234" {
-                wrongPassword = 0
-                if licensePlate.isEmpty {
-                    wrongLicensePlate = 2
-                } else {
-                    wrongLicensePlate = 0
-                    showingLoginScreen = true
-                }
-            } else {
-                wrongPassword = 2
+    private func authenticateLogin()-> Bool {
+        if checkInApi.hasError {
+            switch checkInApi.loginResponse.errorCode {
+            
+            case self.wrongUsernameErrorCode:
+                self.wrongUsername = 2
+                break
+            
+            case self.wrongPasswordErrorCode:
+                self.wrongPassword = 2
+            
+            default:
+                print("Undefined Error Code")
             }
-        } else {
-            wrongUsername = 2
+            
+            return false
         }
+        
+        return true
+    }
+    
+    private func resetErrors() {
+        self.wrongUsername = 0
+        self.wrongPassword = 0
     }
 }
 
