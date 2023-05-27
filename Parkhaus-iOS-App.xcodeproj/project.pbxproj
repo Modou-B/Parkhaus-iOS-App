@@ -21,6 +21,7 @@
 		F975CB0B2A228DFF00A9BA0A /* TicketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F975CB0A2A228DFF00A9BA0A /* TicketModel.swift */; };
 		F975CB0F2A228E1500A9BA0A /* CheckInApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F975CB0D2A228E1500A9BA0A /* CheckInApi.swift */; };
 		F975CB102A228E1500A9BA0A /* AbstractApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F975CB0E2A228E1500A9BA0A /* AbstractApi.swift */; };
+		F975CB122A229C3900A9BA0A /* CarParkingApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F975CB112A229C3900A9BA0A /* CarParkingApi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		F975CB0A2A228DFF00A9BA0A /* TicketModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketModel.swift; sourceTree = "<group>"; };
 		F975CB0D2A228E1500A9BA0A /* CheckInApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInApi.swift; sourceTree = "<group>"; };
 		F975CB0E2A228E1500A9BA0A /* AbstractApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractApi.swift; sourceTree = "<group>"; };
+		F975CB112A229C3900A9BA0A /* CarParkingApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarParkingApi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 			children = (
 				F975CB0D2A228E1500A9BA0A /* CheckInApi.swift */,
 				F975CB0E2A228E1500A9BA0A /* AbstractApi.swift */,
+				F975CB112A229C3900A9BA0A /* CarParkingApi.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 				7C216B1A2A17F878006C9947 /* LongTermParkerLogin.swift in Sources */,
 				7C216B182A17F866006C9947 /* ShortTermParkerLogin.swift in Sources */,
 				F975CB0F2A228E1500A9BA0A /* CheckInApi.swift in Sources */,
+				F975CB122A229C3900A9BA0A /* CarParkingApi.swift in Sources */,
 				7C808C0B2A220CD400373326 /* TestGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

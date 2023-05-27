@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ParkingSpaceGrid: View {
     @StateObject var parkingSpotsModel = ParkingSpotsModel()
+    @StateObject var carParkingApi = CarParkingApi()
 
     @AppStorage("ticket") var ticket: String?
 
@@ -51,8 +52,17 @@ struct ParkingSpaceGrid: View {
                                                 .frame(width: 50, height: 50)
                                                 .foregroundColor(getColor(parkingSpot: parkingSpot))
                                                 .cornerRadius(30)
-                                            Text("\(Int(parkingSpot.id) ?? 0)")
-                                                .foregroundColor(.white)
+                                            Button("\(Int(parkingSpot.id) ?? 0)") {
+                                                Task {
+                                                    let ticketString = ticket?.utf8 ?? "".utf8
+                                                    let ticketData = Data(ticketString)
+                                                    let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
+
+                                                    let parkingSpotId = Int(parkingSpot.id) ?? 0
+                                                    
+                                                    await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: parkingSpotId)
+                                                }
+                                            } .foregroundColor(.white)
                                                 .font(.system(size: 30, design: .rounded))
                                         }
                                     }
