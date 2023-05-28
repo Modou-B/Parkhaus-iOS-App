@@ -37,16 +37,14 @@ struct Home: View {
                         .foregroundColor(.white)
                     
                     
-                    VStack {
+                    VStack(alignment: .leading) {
                         if parkingSpaceModel.dataIsLoaded {
                             Text("Free Long Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces)")
-
-
+                                .font(.system(size: 20, weight: .medium, design: .rounded))
                             Text("Free Short Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
-                            
+                                .font(.system(size: 20, weight: .medium, design: .rounded))
                             Spacer()
                                 .frame(height: 50)
-
                             Button(LongTermParkerLoginLbl) {
                                 showingLongTermLoginScreen = true
                                 }
@@ -58,8 +56,6 @@ struct Home: View {
                                 isPresented: $showingLongTermLoginScreen) {
                                     LongTermParkerLogin()
                                 }
-                            
-                            
                             Button(ShortTermParkerLoginLbl) {
                                 showingShortTermLoginScreen = true
                                 }
