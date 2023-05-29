@@ -15,6 +15,7 @@ struct ParkingSpaceGrid: View {
 
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
+    @AppStorage("step") var stepId: Int?
 
     
     private let data: [Int] = Array(1...180)
@@ -86,6 +87,10 @@ struct ParkingSpaceGrid: View {
                     await parkingSpotsModel.fetchParkingSpots()
                     print(ticket)
                 }
+            }
+            .onAppear {
+                stepId = 4
+                print("StepID: \(stepId)")
             }
 //            .navigationBarBackButtonHidden(true)
         }

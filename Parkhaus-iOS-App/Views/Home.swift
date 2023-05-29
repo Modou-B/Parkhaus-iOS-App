@@ -21,8 +21,8 @@ struct Home: View {
     @StateObject var parkingSpaceModel = ParkingSpaceModel()
     
     @AppStorage("parkingSpotId") var id: Int?
-    @State private var showText = true
-    
+    @AppStorage("step") var stepId: Int?
+    @State private var showCheckOut = false
     
     
     var body: some View {
@@ -41,6 +41,7 @@ struct Home: View {
                     
                     VStack(alignment: .leading) {
                         if parkingSpaceModel.dataIsLoaded {
+//                            if showCheckOut == false {
                             Text("Free Long Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces)")
                                 .font(.system(size: 20, weight: .medium, design: .rounded))
                             Text("Free Short Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
@@ -50,6 +51,7 @@ struct Home: View {
                             Button(LongTermParkerLoginLbl) {
                                 showingLongTermLoginScreen = true
                                 }
+//                            .disabled(showCheckOut)
                             .foregroundColor(.black)
                             .frame(width: 300, height: 50)
                             .background(Color.gray.opacity(0.5))
@@ -62,6 +64,7 @@ struct Home: View {
                             Button(ShortTermParkerLoginLbl) {
                                 showingShortTermLoginScreen = true
                                 }
+//                            .disabled(showCheckOut)
                             .foregroundColor(.black)
                             .frame(width: 300, height: 50)
                             .background(Color.gray.opacity(0.5))
@@ -70,13 +73,16 @@ struct Home: View {
                                 isPresented: $showingShortTermLoginScreen) {
                                     ShortTermParkerLogin()
                                 }
+//                            }
                         } else {
                             Text("Loading parking spot data...")
                         }
 
                     }
                     .onAppear {
-                        
+                        stepId = 1
+                        print("StepID: \(stepId)")
+//                        showCheckOut = checkIfAlreadyInSession()
                     }
                     .navigationTitle("Home")
                 }
@@ -87,13 +93,13 @@ struct Home: View {
         }
     }
     
-    func checkIfAlreadyInSession() -> Bool {
-        if id != nil {
-            return true
-        }
-        
-        return false
-    }
+//    func checkIfAlreadyInSession() -> Bool {
+//        if id != nil {
+//            return true
+//        }
+//
+//        return false
+//    }
 }
 
 

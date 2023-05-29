@@ -12,6 +12,7 @@ struct CheckInTicketPage: View {
     @StateObject var carParkingApi = CarParkingApi()
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
+    @AppStorage("step") var stepId: Int?
     @State private var parkingSpotBooked: Float = 0
     
     var body: some View {
@@ -57,6 +58,8 @@ struct CheckInTicketPage: View {
                             await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
                             print(id)
                             parkingSpotBooked = 2
+                            stepId = 6
+                            print("StepID: \(stepId)")
                         }
                     }
                     .foregroundColor(.black)

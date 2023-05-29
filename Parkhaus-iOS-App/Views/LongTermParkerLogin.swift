@@ -17,7 +17,8 @@ struct LongTermParkerLogin: View {
     @State private var wasAuthenticationSuccessfull = false
 
     @AppStorage("ticket") var ticket: String?
-
+    @AppStorage("parkingSpotId") var id: Int?
+    @AppStorage("step") var stepId: Int?
     @StateObject var checkInApi = CheckInApi()
 
     let wrongUsernameErrorCode: Int = 901
@@ -100,7 +101,10 @@ struct LongTermParkerLogin: View {
 //                    }
                     
                 }
-                
+                .onAppear {
+                    stepId = 2
+                    print("StepID: \(stepId)")
+                }
             }
 //            .navigationBarHidden(true)
         }

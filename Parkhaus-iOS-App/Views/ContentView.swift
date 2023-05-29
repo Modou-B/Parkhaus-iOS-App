@@ -11,14 +11,32 @@ let parkingSpaceUrl = "http://127.0.0.1:8080/"
 
 
 struct ContentView: View {
-    @AppStorage("parkingSpotId") var id: Int?
+    @AppStorage("step") var id: Int?
     
     var body: some View {
-//        if id != 0 {
+        switch id {
+        case 1:
             Home()
-//        } else {
-//            CheckOutTicketPage()
-//        }
+        case 2:
+            LongTermParkerLogin()
+        case 3 :
+            ShortTermParkerLogin()
+        case 4:
+            ParkingSpaceGrid()
+        case 5:
+            CheckInTicketPage()
+        case 6:
+            CheckOutTicketPage()
+        default:
+            Home()
+        }
+    }
+    func checkIfAlreadyInSession() -> Bool {
+        if id != nil {
+            return true
+        }
+        
+        return false
     }
 }
 
