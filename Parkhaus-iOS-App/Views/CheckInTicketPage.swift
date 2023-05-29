@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TestTicketPage: View {
+struct CheckInTicketPage: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var carParkingApi = CarParkingApi()
     @AppStorage("ticket") var ticket: String?
@@ -40,7 +40,8 @@ struct TestTicketPage: View {
                 
                 VStack{
                     Text("Parking spot: \(id ?? 0)")
-                        .font(.system(size: 20, weight: .medium, design: .rounded))
+                        .font(.system(size: 30, weight: .medium, design: .rounded))
+                        .foregroundColor(Color.green)
                     
                     
                     Spacer()
@@ -71,8 +72,8 @@ struct TestTicketPage: View {
         
     }
 
-struct TestTicketPage_Previews: PreviewProvider {
+struct CheckInTicketPage_Previews: PreviewProvider {
     static var previews: some View {
-        TestTicketPage()
+        CheckInTicketPage()
     }
 }

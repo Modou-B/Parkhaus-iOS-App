@@ -58,6 +58,8 @@ struct ShortTermParkerLogin: View {
                         isPresented: $checkInApi.wasSuccessful) {
                             ParkingSpaceGrid()
                         }
+                        .disabled(licensePlate.isEmpty)
+
                 }
 //                .navigationTitle("Short Term Parker")
 //                .navigationBarHidden(true)

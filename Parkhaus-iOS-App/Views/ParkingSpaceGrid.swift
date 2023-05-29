@@ -78,7 +78,7 @@ struct ParkingSpaceGrid: View {
                             .navigationTitle("Parking Spaces")
                             .padding()
                             .sheet(isPresented: $showingTicket) {
-                                TestTicketPage()
+                                CheckInTicketPage()
                             }
                         }
                     }

@@ -9,13 +9,16 @@ import SwiftUI
 
 let parkingSpaceUrl = "http://127.0.0.1:8080/"
 
+
 struct ContentView: View {
+    @AppStorage("parkingSpotId") var id: Int?
     
     var body: some View {
-//        if not session.isloaded {
-        Home()
-// }
-//        GridPopUp zeigen mit dem zuvor ausgewählten Parkplatz
+//        if id != 0 {
+            Home()
+//        } else {
+//            CheckOutTicketPage()
+//        }
     }
 }
 

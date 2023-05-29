@@ -20,6 +20,8 @@ struct Home: View {
     @State private var showingShortTermLoginScreen = false
     @StateObject var parkingSpaceModel = ParkingSpaceModel()
     
+    @AppStorage("parkingSpotId") var id: Int?
+    @State private var showText = true
     
     
     
@@ -56,6 +58,7 @@ struct Home: View {
                                 isPresented: $showingLongTermLoginScreen) {
                                     LongTermParkerLogin()
                                 }
+                                .disabled(false)
                             Button(ShortTermParkerLoginLbl) {
                                 showingShortTermLoginScreen = true
                                 }
@@ -72,6 +75,9 @@ struct Home: View {
                         }
 
                     }
+                    .onAppear {
+                        
+                    }
                     .navigationTitle("Home")
                 }
                 
@@ -82,6 +88,12 @@ struct Home: View {
     }
 }
 
+func checkIfAlreadyInSession() -> Bool{
+    
+    if id == 0 {
+        return true
+    }
+}
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
         Home()
