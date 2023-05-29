@@ -27,7 +27,6 @@ struct LongTermParkerLogin: View {
     let df = DateFormatter()
 
     var body: some View {
-//        df.dateStyle = DateFormatter.Style.short
         NavigationStack {
             ZStack {
                 Color.blue

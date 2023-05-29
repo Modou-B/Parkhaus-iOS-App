@@ -14,6 +14,7 @@ struct ParkingSpaceGrid: View {
 //    @State var parkingSpotId: Int
 
     @AppStorage("ticket") var ticket: String?
+    @AppStorage("parkingSpotId") var id: Int?
 
     
     private let data: [Int] = Array(1...180)
@@ -64,23 +65,12 @@ struct ParkingSpaceGrid: View {
                                             
                                             Button("\(Int(parkingSpot.id) ?? 0)") {
                                                 showingTicket = true
-                                                
                                                 Task {
-                                                    let ticketString = ticket?.utf8 ?? "".utf8
-                                                    let ticketData = Data(ticketString)
-                                                    let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
-
-                                                    let parkingSpotId = Int(parkingSpot.id) ?? 0
-
-                                                    await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: parkingSpotId)
-                                                    
+                                                    id = Int(parkingSpot.id) ?? 0
                                                 }
-                                            } .foregroundColor(.white)
-                                                .font(.system(size: 30, design: .rounded))
-//                                                .navigationDestination(
-//                                                    isPresented: $showingLoginScreen) {
-//                                                        TestTicketPage()
-//                                                    }
+                                            }
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 30, design: .rounded))
                                         }
                                     }
                                 }
@@ -119,6 +109,3 @@ struct ParkingSpaceGrid_Previews: PreviewProvider {
         ParkingSpaceGrid()
     }
 }
-
-
-

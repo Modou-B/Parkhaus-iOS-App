@@ -8,18 +8,14 @@
 import SwiftUI
 
 struct TestTicketPage: View {
-
+    @Environment(\.presentationMode) var presentationMode
     @StateObject var carParkingApi = CarParkingApi()
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
-                
-//    @StateObject var parkingSpaceGrid = ParkingSpaceGrid()
-    
-//    @StateObject var parkingSpotsModel = ParkingSpotsModel()
+    @State private var parkingSpotBooked: Float = 0
     
     var body: some View {
         
-        HStack {
             ZStack {
                 Color.blue
                     .ignoresSafeArea()
@@ -36,55 +32,44 @@ struct TestTicketPage: View {
 //                        presentationMode.wrappedValue.dismiss()
 //                    }, label: {
 //                        Image(systemName: "xmark")
-//                            .foregroundColor(.yellow)
+//                            .foregroundColor(.black)
 //                            .font(.largeTitle)
-//                            .padding(20)
-//                            .frame(alignment: .bottom)
+//                            .padding(10)
+//                            .frame(height: 50, alignment: .top)
 //                    })
-                ZStack{
+                
+                VStack{
+                    Text("Parking spot: \(id ?? 0)")
+                        .font(.system(size: 20, weight: .medium, design: .rounded))
+                    
+                    
+                    Spacer()
+                        .frame(height: 50)
+                
+                    
                     Button("Book parking spot") {
                         Task {
                             let ticketString = ticket?.utf8 ?? "".utf8
                             let ticketData = Data(ticketString)
                             let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
                             
-                            
-//                            let parkingSpotId = Int(parkingSpot.id) ?? 0
-                            
-                            await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id)
+                            await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
+                            print(id)
+                            parkingSpotBooked = 2
                         }
                     }
                     .foregroundColor(.black)
                     .frame(width: 300, height: 50, alignment: .center)
                     .background(Color.gray.opacity(0.5))
                     .cornerRadius(10)
-//                    Button("Test") {
-//                        showingTicket = true
-//
-//
-//                        Task {
-//                            let ticketString = ticket?.utf8 ?? "".utf8
-//                            let ticketData = Data(ticketString)
-//                            let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
-//
-//                            let parkingSpotId = Int(parkingSpot.id) ?? 0
-//
-//                            await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: parkingSpotId)
-//
-//                        }
-//                    } .foregroundColor(.white)
-//                        .font(.system(size: 30, design: .rounded))
+                    .border(.green, width: CGFloat(parkingSpotBooked))
                 }
-                
-                
-                
             }
             .navigationBarBackButtonHidden()
         }
         
         
     }
-}
 
 struct TestTicketPage_Previews: PreviewProvider {
     static var previews: some View {
