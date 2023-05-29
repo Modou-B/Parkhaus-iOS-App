@@ -43,9 +43,9 @@ struct Home: View {
                         if parkingSpaceModel.dataIsLoaded {
 //                            if showCheckOut == false {
                             Text("Free Long Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces)")
-                                .font(.system(size: 20, weight: .medium, design: .rounded))
+                                .font(.system(size: 18, weight: .medium, design: .rounded))
                             Text("Free Short Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
-                                .font(.system(size: 20, weight: .medium, design: .rounded))
+                                .font(.system(size: 18, weight: .medium, design: .rounded))
                             Spacer()
                                 .frame(height: 50)
                             Button(LongTermParkerLoginLbl) {
