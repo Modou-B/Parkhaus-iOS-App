@@ -10,6 +10,8 @@ import SwiftUI
 struct ParkingSpaceGrid: View {
     @StateObject var parkingSpotsModel = ParkingSpotsModel()
     @StateObject var carParkingApi = CarParkingApi()
+    @State private var showingTicket = false
+//    @State var parkingSpotId: Int
 
     @AppStorage("ticket") var ticket: String?
 
@@ -35,6 +37,7 @@ struct ParkingSpaceGrid: View {
         ]
         
         var body: some View {
+            
             NavigationStack {
                 ZStack {
                     ZStack {
@@ -44,32 +47,49 @@ struct ParkingSpaceGrid: View {
                             Circle()
                                 .scale(1.7)
                                 .foregroundColor(.white.opacity(0.15))
+                            
+                            
                             ScrollView {
+                                
                                 LazyVGrid(columns: adaptiveColumns, spacing: 20) {
                                     ForEach(parkingSpotsModel.parkingSpotCollection.parkingSpots ?? [], id: \.id) { parkingSpot in
+                                        
+                                        
                                         ZStack {
                                             Rectangle()
                                                 .frame(width: 50, height: 50)
                                                 .foregroundColor(getColor(parkingSpot: parkingSpot))
                                                 .cornerRadius(30)
+                                            
+                                            
                                             Button("\(Int(parkingSpot.id) ?? 0)") {
+                                                showingTicket = true
+                                                
                                                 Task {
                                                     let ticketString = ticket?.utf8 ?? "".utf8
                                                     let ticketData = Data(ticketString)
                                                     let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
 
                                                     let parkingSpotId = Int(parkingSpot.id) ?? 0
-                                                    
+
                                                     await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: parkingSpotId)
+                                                    
                                                 }
                                             } .foregroundColor(.white)
                                                 .font(.system(size: 30, design: .rounded))
+//                                                .navigationDestination(
+//                                                    isPresented: $showingLoginScreen) {
+//                                                        TestTicketPage()
+//                                                    }
                                         }
                                     }
                                 }
                             }
                             .navigationTitle("Parking Spaces")
                             .padding()
+                            .sheet(isPresented: $showingTicket) {
+                                TestTicketPage()
+                            }
                         }
                     }
                 }.task {
@@ -99,3 +119,6 @@ struct ParkingSpaceGrid_Previews: PreviewProvider {
         ParkingSpaceGrid()
     }
 }
+
+
+

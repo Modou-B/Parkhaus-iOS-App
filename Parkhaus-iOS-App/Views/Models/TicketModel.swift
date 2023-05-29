@@ -13,12 +13,18 @@ class CheckInModel {
         let arrivedAt: String?
         let longTermParkerId: Int?
         
+        
         init(licesePlate: String? = nil, arrivedAt: String? = nil, longTermParkerId: Int? = nil) {
             self.licensePlate = licesePlate
             self.arrivedAt = arrivedAt
             self.longTermParkerId = longTermParkerId
         }
     }
+    
+    struct parkingSpotID: Decodable, Encodable {
+        
+    }
+    
     
     struct LoginResponse: Decodable, Encodable {
         let error: String?

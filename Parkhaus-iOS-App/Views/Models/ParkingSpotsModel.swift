@@ -16,6 +16,8 @@ class ParkingSpotsModel: ObservableObject {
         }
         
     }
+    
+    
     struct ParkingSpot: Codable {
         let id: String
         let reserved: String
@@ -45,4 +47,3 @@ class ParkingSpotsModel: ObservableObject {
         }
     }
 }
-
