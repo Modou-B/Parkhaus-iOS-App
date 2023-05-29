@@ -86,14 +86,17 @@ struct Home: View {
             }
         }
     }
-}
-
-func checkIfAlreadyInSession() -> Bool{
     
-    if id == 0 {
-        return true
+    func checkIfAlreadyInSession() -> Bool {
+        if id != nil {
+            return true
+        }
+        
+        return false
     }
 }
+
+
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
         Home()
