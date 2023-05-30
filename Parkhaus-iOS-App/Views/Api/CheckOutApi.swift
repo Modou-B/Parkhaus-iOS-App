@@ -1,17 +1,18 @@
 //
-//  ShortTermModel.swift
+//  CheckOutApi.swift
 //  Parkhaus-iOS-App
 //
-//  Created by Modou on 26.05.23.
+//  Created by Modou on 30.05.23.
 //
 
 import Foundation
 
 @MainActor
-class CheckInApi: AbstractApi {
-    let getPaymentUrl: String = "http://127.0.0.1:8080/CheckIn/ShortTermParker"
-    let payLaterUrl: String = "http://127.0.0.1:8080/CheckIn/LongTermParker"
-
+class CheckOutApi: AbstractApi {
+    let getPaymentUrl: String = "http://127.0.0.1:8080/CheckOut/GetPayment"
+    let payLaterUrl: String = "http://127.0.0.1:8080/CheckOut/PayLatet"
+    let directPayment: String = "http://127.0.0.1:8080/CheckOut/DirectPayment"
+    
     @Published var ticket: CheckInModel.Ticket = CheckInModel.Ticket()
     @Published var loginResponse: CheckInModel.LoginResponse = CheckInModel.LoginResponse()
     @Published var wasSuccessful: Bool = false
