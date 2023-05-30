@@ -27,6 +27,8 @@ struct ContentView: View {
             CheckInTicketPage()
         case 6:
             CheckOutTicketPage()
+        case 7:
+            CheckOutPayment()
         default:
             Home()
         }

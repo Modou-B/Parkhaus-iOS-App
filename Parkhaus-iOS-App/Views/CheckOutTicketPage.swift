@@ -14,6 +14,7 @@ struct CheckOutTicketPage: View {
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
     @State private var parkingSpotBooked: Float = 0
+    @State private var isALongTermParker: Bool = false
     
     var body: some View {
         
@@ -47,31 +48,84 @@ struct CheckOutTicketPage: View {
                     
                     Spacer()
                         .frame(height: 50)
-                
                     
-                    Button("Booking out parking spot") {
-                        Task {
-                            let ticketString = ticket?.utf8 ?? "".utf8
-                            let ticketData = Data(ticketString)
-                            let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
-                            
-                            await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
-                            print(id)
-                            parkingSpotBooked = 2
-                            stepId = 1
-                            print("StepID: \(stepId)")
+                    if isALongTermParker == false {
+                        Button("Checkout") {
+                            Task {
+                                let ticketString = ticket?.utf8 ?? "".utf8
+                                let ticketData = Data(ticketString)
+                                let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
+                                
+                                await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
+                                print(id)
+                                parkingSpotBooked = 2
+                                stepId = 7
+                                print("StepID: \(stepId)")
+                            }
                         }
+                        .foregroundColor(.black)
+                        .frame(width: 300, height: 50, alignment: .center)
+                        .background(Color.gray.opacity(0.5))
+                        .cornerRadius(10)
+                        .border(.green, width: CGFloat(parkingSpotBooked))
+                    } else {
+                        Button("Checkout") {
+                            Task {
+                                let ticketString = ticket?.utf8 ?? "".utf8
+                                let ticketData = Data(ticketString)
+                                let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
+                                
+                                await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
+                                print(id)
+                                parkingSpotBooked = 2
+                                stepId = 7
+                                print("StepID: \(stepId)")
+                            }
+                        }
+                        .foregroundColor(.black)
+                        .frame(width: 300, height: 50, alignment: .center)
+                        .background(Color.gray.opacity(0.5))
+                        .cornerRadius(10)
+                        .border(.green, width: CGFloat(parkingSpotBooked))
+                        
+                        Button("Fast Checkout (pay later)") {
+                            Task {
+                                let ticketString = ticket?.utf8 ?? "".utf8
+                                let ticketData = Data(ticketString)
+                                let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
+                                
+                                await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
+                                print(id)
+                                parkingSpotBooked = 2
+                                stepId = 1
+                                print("StepID: \(stepId)")
+                            }
+                        }
+                        .foregroundColor(.black)
+                        .frame(width: 300, height: 50, alignment: .center)
+                        .background(Color.gray.opacity(0.5))
+                        .cornerRadius(10)
+                        .border(.green, width: CGFloat(parkingSpotBooked))
                     }
-                    .foregroundColor(.black)
-                    .frame(width: 300, height: 50, alignment: .center)
-                    .background(Color.gray.opacity(0.5))
-                    .cornerRadius(10)
-                    .border(.green, width: CGFloat(parkingSpotBooked))
+                    
                 }
             }
             .navigationBarBackButtonHidden()
+            .onAppear {
+                Task{
+                    let ticketString = ticket?.utf8 ?? "".utf8
+                    let ticketData = Data(ticketString)
+                    let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
+                    
+                    if ticket.longTermParkerId != nil {
+                        isALongTermParker = true
+                    }
+                    
+                }
+            }
         }
-        
+    
+    
         
     }
 

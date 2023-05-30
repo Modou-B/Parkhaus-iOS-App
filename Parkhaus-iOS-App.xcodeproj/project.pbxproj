@@ -16,6 +16,7 @@
 		7C216B1A2A17F878006C9947 /* LongTermParkerLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B192A17F878006C9947 /* LongTermParkerLogin.swift */; };
 		7C216B1C2A17F88E006C9947 /* ParkingSpaceGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B1B2A17F88E006C9947 /* ParkingSpaceGrid.swift */; };
 		7C216B1E2A17FAB8006C9947 /* ParkingSpaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C216B1D2A17FAB8006C9947 /* ParkingSpaceModel.swift */; };
+		7C384A212A2695A7007A15DE /* CheckOutPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C384A202A2695A7007A15DE /* CheckOutPayment.swift */; };
 		7C808C0B2A220CD400373326 /* TestGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C808C0A2A220CD400373326 /* TestGrid.swift */; };
 		7CFC34652A22D9960091B93C /* CheckInTicketPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFC34642A22D9960091B93C /* CheckInTicketPage.swift */; };
 		7CFC34672A2539CF0091B93C /* CheckOutTicketPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFC34662A2539CF0091B93C /* CheckOutTicketPage.swift */; };
@@ -37,6 +38,7 @@
 		7C216B192A17F878006C9947 /* LongTermParkerLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTermParkerLogin.swift; sourceTree = "<group>"; };
 		7C216B1B2A17F88E006C9947 /* ParkingSpaceGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceGrid.swift; sourceTree = "<group>"; };
 		7C216B1D2A17FAB8006C9947 /* ParkingSpaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceModel.swift; sourceTree = "<group>"; };
+		7C384A202A2695A7007A15DE /* CheckOutPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutPayment.swift; sourceTree = "<group>"; };
 		7C808C0A2A220CD400373326 /* TestGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGrid.swift; sourceTree = "<group>"; };
 		7CFC34642A22D9960091B93C /* CheckInTicketPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInTicketPage.swift; sourceTree = "<group>"; };
 		7CFC34662A2539CF0091B93C /* CheckOutTicketPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutTicketPage.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				F975CB092A228DFF00A9BA0A /* Models */,
 				7C216B062A17CE86006C9947 /* ContentView.swift */,
 				7C216B152A17F821006C9947 /* Home.swift */,
+				7C384A202A2695A7007A15DE /* CheckOutPayment.swift */,
 				7C216B172A17F866006C9947 /* ShortTermParkerLogin.swift */,
 				7CFC34662A2539CF0091B93C /* CheckOutTicketPage.swift */,
 				7C216B192A17F878006C9947 /* LongTermParkerLogin.swift */,
@@ -220,6 +223,7 @@
 				F975CAEF2A22382800A9BA0A /* ParkingSpotsModel.swift in Sources */,
 				F975CB102A228E1500A9BA0A /* AbstractApi.swift in Sources */,
 				7C216B072A17CE86006C9947 /* ContentView.swift in Sources */,
+				7C384A212A2695A7007A15DE /* CheckOutPayment.swift in Sources */,
 				7C216B162A17F821006C9947 /* Home.swift in Sources */,
 				7C216B052A17CE86006C9947 /* Parkhaus_iOS_AppApp.swift in Sources */,
 				7CFC34652A22D9960091B93C /* CheckInTicketPage.swift in Sources */,
