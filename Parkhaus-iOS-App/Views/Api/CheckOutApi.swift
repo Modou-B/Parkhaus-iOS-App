@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 class CheckOutApi: AbstractApi {
     let getPaymentUrl: String = "http://127.0.0.1:8080/CheckOut/GetPayment"
-    let payLaterUrl: String = "http://127.0.0.1:8080/CheckOut/PayLatet"
+    let payLaterUrl: String = "http://127.0.0.1:8080/CheckOut/PayLater"
     let directPayment: String = "http://127.0.0.1:8080/CheckOut/DirectPayment"
     
     
