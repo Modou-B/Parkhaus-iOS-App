@@ -9,10 +9,12 @@ import SwiftUI
 
 struct CheckOutTicketPage: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var carParkingApi = CarParkingApi()
+    @StateObject var checkOutApi = CheckOutApi()
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
+    @AppStorage("payment") var payment: String?
+    
     @State private var parkingSpotBooked: Float = 0
     @State private var isALongTermParker: Bool = false
     
@@ -49,14 +51,19 @@ struct CheckOutTicketPage: View {
                     Spacer()
                         .frame(height: 50)
                     
-                    if isALongTermParker == false {
                         Button("Checkout") {
                             Task {
                                 let ticketString = ticket?.utf8 ?? "".utf8
                                 let ticketData = Data(ticketString)
                                 let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
                                 
-                                await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
+                                await checkOutApi.getPayment(ticket: ticket)
+                                
+                                
+                                let jsonData = try JSONEncoder().encode(checkOutApi.payment)
+                                let jsonString = String(data: jsonData, encoding: .utf8)!
+                                payment = jsonString
+                                
                                 print(id)
                                 parkingSpotBooked = 2
                                 stepId = 7
@@ -68,33 +75,16 @@ struct CheckOutTicketPage: View {
                         .background(Color.gray.opacity(0.5))
                         .cornerRadius(10)
                         .border(.green, width: CGFloat(parkingSpotBooked))
-                    } else {
-                        Button("Checkout") {
-                            Task {
-                                let ticketString = ticket?.utf8 ?? "".utf8
-                                let ticketData = Data(ticketString)
-                                let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
-                                
-                                await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
-                                print(id)
-                                parkingSpotBooked = 2
-                                stepId = 7
-                                print("StepID: \(stepId)")
-                            }
-                        }
-                        .foregroundColor(.black)
-                        .frame(width: 300, height: 50, alignment: .center)
-                        .background(Color.gray.opacity(0.5))
-                        .cornerRadius(10)
-                        .border(.green, width: CGFloat(parkingSpotBooked))
-                        
+                    
+                    
+                    if isALongTermParker == true {
                         Button("Fast Checkout (pay later)") {
                             Task {
                                 let ticketString = ticket?.utf8 ?? "".utf8
                                 let ticketData = Data(ticketString)
                                 let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
                                 
-                                await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
+//                                await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
                                 print(id)
                                 parkingSpotBooked = 2
                                 stepId = 1
@@ -106,7 +96,7 @@ struct CheckOutTicketPage: View {
                         .background(Color.gray.opacity(0.5))
                         .cornerRadius(10)
                         .border(.green, width: CGFloat(parkingSpotBooked))
-                    }
+                        }
                     
                 }
             }

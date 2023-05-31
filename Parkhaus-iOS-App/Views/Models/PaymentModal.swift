@@ -1,23 +1,25 @@
 //
-//  TicketModel.swift
+//  PaymentModal.swift
 //  Parkhaus-iOS-App
 //
-//  Created by Julian Sommer on 27.05.23.
+//  Created by Modou on 31.05.23.
 //
 
-import SwiftUI
+import Foundation
 
-class CheckInModel {
-    struct Ticket: Decodable, Encodable {
-        let licensePlate: String?
+class PaymentModal {
+    struct Payment: Decodable, Encodable {
         let arrivedAt: String?
-        let longTermParkerId: Int?
+        let departuredAt: String?
+        let licensePlate: String?
+        let amount: Float?
         
         
-        init(licesePlate: String? = nil, arrivedAt: String? = nil, longTermParkerId: Int? = nil) {
+        init(licesePlate: String? = nil, arrivedAt: String? = nil, amount: Float? = nil, departuredAt: String? = nil) {
             self.licensePlate = licesePlate
             self.arrivedAt = arrivedAt
-            self.longTermParkerId = longTermParkerId
+            self.amount = amount
+            self.departuredAt = departuredAt
         }
     }
     
