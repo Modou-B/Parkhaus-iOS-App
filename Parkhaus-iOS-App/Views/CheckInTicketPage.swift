@@ -56,10 +56,10 @@ struct CheckInTicketPage: View {
                             let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
                             
                             await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
-                            print(id)
+//                            print(id)
                             parkingSpotBooked = 2
                             stepId = 6
-                            print("StepID: \(stepId)")
+//                            print("StepID: \(stepId)")
                         }
                     }
                     .foregroundColor(.black)

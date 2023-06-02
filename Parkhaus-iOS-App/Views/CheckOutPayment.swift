@@ -21,7 +21,7 @@ struct CheckOutPayment: View {
 
     
     var body: some View {
-        if loadPaymentData() {
+        
             ZStack {
                 Color.orange
                     .ignoresSafeArea()
@@ -52,49 +52,48 @@ struct CheckOutPayment: View {
                     Spacer()
                         .frame(height: 50)
                     
-//                    Text("Parking spot: \(id ?? 0)")
-//                        .font(.system(size: 30, weight: .medium, design: .rounded))
-//                        .foregroundColor(Color.green)
+                    VStack(alignment: .center) {
+                        Text("PAYMENT AMOUNT: \(paymentStruct.amount ?? 0)")
+                            .font(.system(size: 15, weight: .medium, design: .rounded))
+                            .foregroundColor(Color.red.opacity(0.7))
+                        Spacer()
+                            .frame(height: 10)
+                        
+                        
+                        Text("ARRIVED AT: \(paymentStruct.arrivedAt ?? "")")
+                            .font(.system(size: 15, weight: .medium, design: .rounded))
+                            .foregroundColor(Color.red.opacity(0.7))
+                        Spacer()
+                            .frame(height: 10)
+                        
+                        
+                        Text("DEPARTURED AT: \(paymentStruct.departuredAt ?? "")")
+                            .font(.system(size: 15, weight: .medium, design: .rounded))
+                            .foregroundColor(Color.red.opacity(0.7))
+                        Spacer()
+                            .frame(height: 50)
+                    }
                     
-                    Spacer()
-                        .frame(height: 50)
                     
-                    Text("PAYMENT PRICE: ")
-                        .font(.system(size: 10, weight: .medium, design: .rounded))
-                        .foregroundColor(Color.green)
-                    
-                    Spacer()
-                        .frame(height: 50)
-                    
-                    Text("Amount: \(paymentStruct.amount ?? 0)")
-                        .font(.system(size: 30, weight: .medium, design: .rounded))
-                        .foregroundColor(Color.green)
-                    
-                    Spacer()
-                        .frame(height: 50)
                     Button("Pay") {
                         Task {
-                            //                            let ticketString = ticket?.utf8 ?? "".utf8
-                            //                            let ticketData = Data(ticketString)
-                            //                            let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
-                            //
-                            //                            await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
-                            //                            print(id)
-                            //                            parkingSpotBooked = 2
                             stepId = 1
-                            print("StepID: \(stepId)")
+//                            print("StepID: \(stepId)")
                         }
                     }
                     .foregroundColor(.black)
                     .frame(width: 300, height: 50, alignment: .center)
                     .background(Color.gray.opacity(0.5))
                     .cornerRadius(10)
-                    //                    .border(.green, width: CGFloat(parkingSpotBooked))
                 }
             }
             .navigationBarBackButtonHidden()
-        }
+            .onAppear {
+                loadPaymentData()
+            }
     }
+    
+    
     private func loadPaymentData() -> Bool {
         let paymentString = payment?.utf8 ?? "".utf8
         let paymentData = Data(paymentString)

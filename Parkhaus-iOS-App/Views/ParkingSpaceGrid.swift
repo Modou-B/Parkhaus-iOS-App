@@ -90,7 +90,7 @@ struct ParkingSpaceGrid: View {
             }
             .onAppear {
                 stepId = 4
-                print("StepID: \(stepId)")
+//                print("StepID: \(stepId)")
             }
 //            .navigationBarBackButtonHidden(true)
         }

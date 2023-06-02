@@ -103,7 +103,7 @@ struct LongTermParkerLogin: View {
                 }
                 .onAppear {
                     stepId = 2
-                    print("StepID: \(stepId)")
+//                    print("StepID: \(stepId)")
                 }
             }
 //            .navigationBarHidden(true)

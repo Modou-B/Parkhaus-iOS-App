@@ -64,10 +64,10 @@ struct CheckOutTicketPage: View {
                                 let jsonString = String(data: jsonData, encoding: .utf8)!
                                 payment = jsonString
                                 
-                                print(id)
+//                                print(id)
                                 parkingSpotBooked = 2
                                 stepId = 7
-                                print("StepID: \(stepId)")
+//                                print("StepID: \(stepId)")
                             }
                         }
                         .foregroundColor(.black)
@@ -84,18 +84,24 @@ struct CheckOutTicketPage: View {
                                 let ticketData = Data(ticketString)
                                 let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
                                 
-//                                await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
-                                print(id)
-                                parkingSpotBooked = 2
+                                await checkOutApi.payLater(ticket: ticket)
+                                
+                                
+                                let jsonData = try JSONEncoder().encode(checkOutApi.payment)
+                                let jsonString = String(data: jsonData, encoding: .utf8)!
+                                payment = jsonString
+                                
+                                
+//                                parkingSpotBooked = 2
                                 stepId = 1
-                                print("StepID: \(stepId)")
+//                                print("StepID: \(stepId)")
                             }
                         }
                         .foregroundColor(.black)
                         .frame(width: 300, height: 50, alignment: .center)
                         .background(Color.gray.opacity(0.5))
                         .cornerRadius(10)
-                        .border(.green, width: CGFloat(parkingSpotBooked))
+//                        .border(.green, width: CGFloat(parkingSpotBooked))
                         }
                     
                 }

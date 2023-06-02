@@ -80,8 +80,8 @@ struct Home: View {
 
                     }
                     .onAppear {
-                        stepId = 1
-                        print("StepID: \(stepId)")
+//                        stepId = 1
+//                        print("StepID: \(stepId)")
 //                        showCheckOut = checkIfAlreadyInSession()
                     }
                     .navigationTitle("Home")

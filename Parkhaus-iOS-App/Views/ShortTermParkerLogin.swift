@@ -66,7 +66,7 @@ struct ShortTermParkerLogin: View {
                     }
                     .onAppear {
                         stepId = 3
-                        print("StepID: \(stepId)")
+//                        print("StepID: \(stepId)")
                     }
     //                .navigationTitle("Short Term Parker")
     //                .navigationBarHidden(true)
