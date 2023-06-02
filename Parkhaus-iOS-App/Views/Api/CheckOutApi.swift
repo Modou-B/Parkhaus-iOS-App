@@ -13,8 +13,7 @@ class CheckOutApi: AbstractApi {
     let payLaterUrl: String = "http://127.0.0.1:8080/CheckOut/PayLater"
     let directPaymentUrl: String = "http://127.0.0.1:8080/CheckOut/DirectPayment"
     
-    
-    @Published var payment: PaymentModal.Payment = PaymentModal.Payment()
+    @Published var payment: PaymentModel.Payment = PaymentModel.Payment()
     @Published var loginResponse: CheckInModel.LoginResponse = CheckInModel.LoginResponse()
     @Published var wasSuccessful: Bool = false
     @Published var hasError: Bool = false
@@ -41,7 +40,7 @@ class CheckOutApi: AbstractApi {
         }
 
         do {
-            let decodedResult = try JSONDecoder().decode(PaymentModal.Payment.self,from: responseDate ?? Data())
+            let decodedResult = try JSONDecoder().decode(PaymentModel.Payment.self,from: responseDate ?? Data())
             payment = decodedResult
             print("\(payment)")
             wasSuccessful = true
@@ -77,7 +76,7 @@ class CheckOutApi: AbstractApi {
     
     
     
-    public func directPayment(payment: PaymentModal.Payment) async {
+    public func directPayment(payment: PaymentModel.Payment) async {
         let body: [String: Any] = [
             "licensePlate": payment.licensePlate ?? "",
             "arrivedAt": payment.arrivedAt ?? "",

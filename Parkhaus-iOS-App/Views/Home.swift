@@ -10,19 +10,16 @@ import SwiftUI
 struct Home: View {
     @State var LongTermParkerLoginLbl = "Long Term Parker"
     @State var ShortTermParkerLoginLbl = "Short Term Parker"
-    
     @State var LongTermParkingSpacesLbl = "Free Long Term Parking Spaces:"
     @State var ShortTermParkingSpacesLbl = "Free Short Term Parking Spaces:"
-    
-    
-    //Todo: $showingLoginScreen hinzufügen
     @State private var showingLongTermLoginScreen = false
     @State private var showingShortTermLoginScreen = false
-    @StateObject var parkingSpaceModel = ParkingSpaceModel()
+    @State private var showCheckOut = false
     
+    @StateObject var parkingSpaceModel = ParkingSpaceModel()
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
-    @State private var showCheckOut = false
+    
     
     
     var body: some View {
@@ -41,66 +38,51 @@ struct Home: View {
                     
                     VStack(alignment: .leading) {
                         if parkingSpaceModel.dataIsLoaded {
-//                            if showCheckOut == false {
-                            Text("Free Long Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces)")
+                            Text("\(LongTermParkingSpacesLbl) \(parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces)")
                                 .font(.system(size: 18, weight: .medium, design: .rounded))
-                            Text("Free Short Term Parking Spaces: \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
+                            
+                            
+                            Text("\(ShortTermParkingSpacesLbl) \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
                                 .font(.system(size: 18, weight: .medium, design: .rounded))
+                            
+                            
                             Spacer()
                                 .frame(height: 50)
-                            Button(LongTermParkerLoginLbl) {
-                                showingLongTermLoginScreen = true
-                                }
-//                            .disabled(showCheckOut)
+                            
+                            
+                            Button(LongTermParkerLoginLbl) { showingLongTermLoginScreen = true }
                             .foregroundColor(.black)
                             .frame(width: 300, height: 50)
                             .background(Color.gray.opacity(0.5))
                             .cornerRadius(10)
                             .navigationDestination(
-                                isPresented: $showingLongTermLoginScreen) {
-                                    LongTermParkerLogin()
-                                }
+                                isPresented: $showingLongTermLoginScreen) { LoginLongTermParker() }
                                 .disabled(false)
-                            Button(ShortTermParkerLoginLbl) {
-                                showingShortTermLoginScreen = true
-                                }
-//                            .disabled(showCheckOut)
+                            
+                            
+                            Button(ShortTermParkerLoginLbl) { showingShortTermLoginScreen = true }
                             .foregroundColor(.black)
                             .frame(width: 300, height: 50)
                             .background(Color.gray.opacity(0.5))
                             .cornerRadius(10)
                             .navigationDestination(
-                                isPresented: $showingShortTermLoginScreen) {
-                                    ShortTermParkerLogin()
-                                }
-//                            }
+                                isPresented: $showingShortTermLoginScreen) { LoginShortTermParker() }
+                            
+                            
                         } else {
                             Text("Loading parking spot data...")
                         }
 
                     }
-                    .onAppear {
-//                        stepId = 1
-//                        print("StepID: \(stepId)")
-//                        showCheckOut = checkIfAlreadyInSession()
-                    }
                     .navigationTitle("Home")
                 }
-                
             } .task {
                 await parkingSpaceModel.fetchParkingSpaceCounts()
             }
         }
     }
-    
-//    func checkIfAlreadyInSession() -> Bool {
-//        if id != nil {
-//            return true
-//        }
-//
-//        return false
-//    }
 }
+
 
 
 struct Home_Previews: PreviewProvider {

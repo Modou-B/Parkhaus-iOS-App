@@ -18,21 +18,24 @@ struct ContentView: View {
         case 1:
             Home()
         case 2:
-            LongTermParkerLogin()
+            LoginLongTermParker()
         case 3 :
-            ShortTermParkerLogin()
+            LoginShortTermParker()
         case 4:
             ParkingSpaceGrid()
         case 5:
-            CheckInTicketPage()
+            CheckInTicket()
         case 6:
-            CheckOutTicketPage()
+            CheckOutTicket()
         case 7:
             CheckOutPayment()
         default:
             Home()
         }
     }
+    
+    
+    
     func checkIfAlreadyInSession() -> Bool {
         if id != nil {
             return true
@@ -40,7 +43,10 @@ struct ContentView: View {
         
         return false
     }
+    
 }
+
+
 
 struct ContentView_Previews: PreviewProvider {
     

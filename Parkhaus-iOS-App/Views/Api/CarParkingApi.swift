@@ -13,6 +13,8 @@ class CarParkingApi: AbstractApi {
 
     @Published var wasSuccessful: Bool = false
 
+    
+    
     public func parkCar(licensePlate: String, parkingSpotId: Int) async {
         let body: [String: Any] = [
             "licensePlate": licensePlate,

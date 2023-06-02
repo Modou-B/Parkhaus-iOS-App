@@ -7,15 +7,18 @@
 
 import SwiftUI
 
-struct ShortTermParkerLogin: View {
+struct LoginShortTermParker: View {
     @State private var licensePlate = ""
     @State private var wrongLicensePlate: Float  = 0
+    
+    @StateObject var checkInApi = CheckInApi()
+    @Environment(\.presentationMode) var presentationMode
     
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
-    @StateObject var checkInApi = CheckInApi()
-    @Environment(\.presentationMode) var presentationMode
+    
+    
     
     var body: some View {
         NavigationStack {
@@ -45,11 +48,11 @@ struct ShortTermParkerLogin: View {
                         
                         Button("Login") {
                             checkLicenseIsEmpty(licensePlate: licensePlate)
+                            
                             Task {
                                 await checkInApi.checkInShortTermParker(licensePlate: licensePlate)
-                                
                                 let jsonData = try JSONEncoder().encode(checkInApi.ticket)
-                               let jsonString = String(data: jsonData, encoding: .utf8)!
+                                let jsonString = String(data: jsonData, encoding: .utf8)!
                                 ticket = jsonString
                             }
                         }
@@ -57,19 +60,12 @@ struct ShortTermParkerLogin: View {
                         .frame(width: 300, height: 50)
                         .background(Color.blue)
                         .cornerRadius(10)
-                        .navigationDestination(
-                            isPresented: $checkInApi.wasSuccessful) {
-                                ParkingSpaceGrid()
-                            }
+                        .navigationDestination(isPresented: $checkInApi.wasSuccessful) { ParkingSpaceGrid() }
                             .disabled(licensePlate.isEmpty)
-
                     }
                     .onAppear {
                         stepId = 3
-//                        print("StepID: \(stepId)")
                     }
-    //                .navigationTitle("Short Term Parker")
-    //                .navigationBarHidden(true)
                 }
             }
         }
@@ -85,8 +81,10 @@ struct ShortTermParkerLogin: View {
     }
 }
 
+
+
 struct ShortTermParkerLogin_Previews: PreviewProvider {
     static var previews: some View {
-        ShortTermParkerLogin()
+        LoginShortTermParker()
     }
 }

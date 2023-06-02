@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LongTermParkerLogin: View {
+struct LoginLongTermParker: View {
     @State private var username = ""
     @State private var password = ""
     @State private var licensePlate = ""
@@ -16,17 +16,20 @@ struct LongTermParkerLogin: View {
     @State private var wrongLicensePlate: Float  = 0
     @State private var wasAuthenticationSuccessfull = false
 
+    @StateObject var checkInApi = CheckInApi()
+    
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
-    @StateObject var checkInApi = CheckInApi()
-
+    
     let wrongUsernameErrorCode: Int = 901
     let wrongPasswordErrorCode: Int = 902
     
     let date = Date()
     let df = DateFormatter()
 
+    
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -61,8 +64,10 @@ struct LongTermParkerLogin: View {
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongPassword))
                     
+                    
                     Spacer()
                         .frame(height: 20)
+                    
                     
                     TextField("License Plate", text: $licensePlate)
                         .padding()
@@ -71,19 +76,19 @@ struct LongTermParkerLogin: View {
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongLicensePlate))
                     
+                    
                     Spacer()
                         .frame(height: 30)
+                    
                     
                     Button("Login") {
                         Task {
                             resetErrors()
                             await checkInApi.checkInLongTermParker(licensePlate: licensePlate, username: username, password: password)
-                            
                             if authenticateLogin() {
                                 let jsonData = try JSONEncoder().encode(checkInApi.ticket)
-                               let jsonString = String(data: jsonData, encoding: .utf8)!
+                                let jsonString = String(data: jsonData, encoding: .utf8)!
                                 ticket = jsonString
-                                
                                 self.wasAuthenticationSuccessfull = true
                             }
                         }
@@ -92,23 +97,16 @@ struct LongTermParkerLogin: View {
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
                     .cornerRadius(10)
-                    .navigationDestination(
-                        isPresented: $wasAuthenticationSuccessfull) {
-                            ParkingSpaceGrid()
-
-                        }
-//                    NavigationLink(destination: ParkingSpaceGrid(), isActive: $showingLoginScreen) {
-//                    }
-                    
+                    .navigationDestination(isPresented: $wasAuthenticationSuccessfull) { ParkingSpaceGrid() }
                 }
                 .onAppear {
                     stepId = 2
-//                    print("StepID: \(stepId)")
                 }
             }
-//            .navigationBarHidden(true)
         }
     }
+    
+    
     private func authenticateLogin()-> Bool {
         if checkInApi.hasError {
             switch checkInApi.loginResponse.errorCode {
@@ -130,14 +128,17 @@ struct LongTermParkerLogin: View {
         return true
     }
     
+    
     private func resetErrors() {
         self.wrongUsername = 0
         self.wrongPassword = 0
     }
+    
 }
+
 
 struct LongTermParkerLogin_Previews: PreviewProvider {
     static var previews: some View {
-        LongTermParkerLogin()
+        LoginLongTermParker()
     }
 }

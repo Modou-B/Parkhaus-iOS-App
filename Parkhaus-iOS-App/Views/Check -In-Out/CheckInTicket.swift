@@ -7,16 +7,17 @@
 
 import SwiftUI
 
-struct CheckInTicketPage: View {
+struct CheckInTicket: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var carParkingApi = CarParkingApi()
+    
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
-    @State private var parkingSpotBooked: Float = 0
+ 
+    
     
     var body: some View {
-        
             ZStack {
                 Color.blue
                     .ignoresSafeArea()
@@ -39,6 +40,7 @@ struct CheckInTicketPage: View {
 //                            .frame(height: 50, alignment: .top)
 //                    })
                 
+                
                 VStack{
                     Text("Parking spot: \(id ?? 0)")
                         .font(.system(size: 30, weight: .medium, design: .rounded))
@@ -54,29 +56,24 @@ struct CheckInTicketPage: View {
                             let ticketString = ticket?.utf8 ?? "".utf8
                             let ticketData = Data(ticketString)
                             let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
-                            
                             await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
-//                            print(id)
-                            parkingSpotBooked = 2
                             stepId = 6
-//                            print("StepID: \(stepId)")
                         }
                     }
                     .foregroundColor(.black)
                     .frame(width: 300, height: 50, alignment: .center)
                     .background(Color.gray.opacity(0.5))
                     .cornerRadius(10)
-                    .border(.green, width: CGFloat(parkingSpotBooked))
                 }
             }
             .navigationBarBackButtonHidden()
         }
         
-        
     }
+
 
 struct CheckInTicketPage_Previews: PreviewProvider {
     static var previews: some View {
-        CheckInTicketPage()
+        CheckInTicket()
     }
 }

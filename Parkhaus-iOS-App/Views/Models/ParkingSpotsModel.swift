@@ -14,7 +14,6 @@ class ParkingSpotsModel: ObservableObject {
         init(parkingSpots: [ParkingSpot]? = []) {
             self.parkingSpots = parkingSpots
         }
-        
     }
     
     
@@ -24,9 +23,10 @@ class ParkingSpotsModel: ObservableObject {
         let isFree: String
     }
     
+    
     @Published var parkingSpotCollection: ParkingSpotCollection = ParkingSpotCollection()
-
     @Published var dataIsLoaded: Bool = false
+    
     
     @MainActor
     func fetchParkingSpots()  async {

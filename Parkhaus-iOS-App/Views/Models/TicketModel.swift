@@ -21,6 +21,7 @@ class CheckInModel {
         }
     }
     
+    
     struct LoginResponse: Decodable, Encodable {
         let error: String?
         let errorCode: Int?

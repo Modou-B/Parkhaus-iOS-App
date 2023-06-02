@@ -8,21 +8,22 @@
 import SwiftUI
 
 struct CheckOutPayment: View {
+    @State private var parkingSpotBooked: Float = 0
+    @State private var paymentStruct: PaymentModel.Payment = PaymentModel.Payment()
+    @State private var isLoaded: Bool = false
+
     @Environment(\.presentationMode) var presentationMode
     @StateObject var carParkingApi = CarParkingApi()
     @StateObject var checkOutApi = CheckOutApi()
+    
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
     @AppStorage("payment") var payment: String?
     
-    @State private var parkingSpotBooked: Float = 0
-    @State private var paymentStruct: PaymentModal.Payment = PaymentModal.Payment()
-    @State private var isLoaded: Bool = false
-
+    
     
     var body: some View {
-        
             ZStack {
                 Color.orange
                     .ignoresSafeArea()
@@ -45,18 +46,23 @@ struct CheckOutPayment: View {
                 //                            .frame(height: 50, alignment: .top)
                 //                    })
                 
+                
                 VStack{
                     Text("Parking spot: \(id ?? 0)")
                         .font(.system(size: 30, weight: .medium, design: .rounded))
                         .foregroundColor(Color.green)
                     
+                    
                     Spacer()
                         .frame(height: 50)
+                    
                     
                     VStack(alignment: .center) {
                         Text("PAYMENT AMOUNT: \(paymentStruct.amount ?? 0)")
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                             .foregroundColor(Color.red.opacity(0.7))
+                        
+                        
                         Spacer()
                             .frame(height: 10)
                         
@@ -64,6 +70,8 @@ struct CheckOutPayment: View {
                         Text("ARRIVED AT: \(paymentStruct.arrivedAt ?? "")")
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                             .foregroundColor(Color.red.opacity(0.7))
+                        
+                        
                         Spacer()
                             .frame(height: 10)
                         
@@ -71,6 +79,8 @@ struct CheckOutPayment: View {
                         Text("DEPARTURED AT: \(paymentStruct.departuredAt ?? "")")
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                             .foregroundColor(Color.red.opacity(0.7))
+                        
+                        
                         Spacer()
                             .frame(height: 50)
                     }
@@ -80,19 +90,12 @@ struct CheckOutPayment: View {
                         Task {
                             let paymentString = payment?.utf8 ?? "".utf8
                             let paymentData = Data(paymentString)
-                            let paymentJSON = try JSONDecoder().decode(PaymentModal.Payment.self, from: paymentData)
-                            
+                            let paymentJSON = try JSONDecoder().decode(PaymentModel.Payment.self, from: paymentData)
                             await checkOutApi.directPayment(payment: paymentJSON)
-                            
-                            
                             let jsonData = try JSONEncoder().encode(checkOutApi.payment)
                             let jsonString = String(data: jsonData, encoding: .utf8)!
                             payment = jsonString
-                            
-                            
-//                            print(payment)
                             stepId = 1
-//                            print("StepID: \(stepId)")
                         }
                     }
                     .foregroundColor(.black)
@@ -112,7 +115,7 @@ struct CheckOutPayment: View {
         let paymentString = payment?.utf8 ?? "".utf8
         let paymentData = Data(paymentString)
         do {
-            self.paymentStruct = try JSONDecoder().decode(PaymentModal.Payment.self, from: paymentData)
+            self.paymentStruct = try JSONDecoder().decode(PaymentModel.Payment.self, from: paymentData)
         }
         catch {
             print("Data cannont be loaded")
@@ -124,6 +127,7 @@ struct CheckOutPayment: View {
     }
     
 }
+
 
 struct CheckOutPayment_Previews: PreviewProvider {
     static var previews: some View {

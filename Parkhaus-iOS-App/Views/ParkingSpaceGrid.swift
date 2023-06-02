@@ -8,92 +8,77 @@
 import SwiftUI
 
 struct ParkingSpaceGrid: View {
+    @State private var showingTicket = false
+    
     @StateObject var parkingSpotsModel = ParkingSpotsModel()
     @StateObject var carParkingApi = CarParkingApi()
-    @State private var showingTicket = false
-//    @State var parkingSpotId: Int
-
+    
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
 
-    
     private let data: [Int] = Array(1...180)
     private let colors: [Color] = [.green, .red, .gray]
+
+    private let adaptiveColumns = [
+        GridItem(.adaptive(minimum: 50))
+    ]
+    
+    
+    
         
-        // Flexible, custom amount of columns that fill the remaining space
-        private let numberColumns = [
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ]
-        
-        // Adaptive, make sure it's the size of your smallest element.
-        private let adaptiveColumns = [
-            GridItem(.adaptive(minimum: 50))
-        ]
-        
-        // Fixed, creates columns with fixed dimensions
-        private let fixedColumns = [
-            GridItem(.fixed(200)),
-            GridItem(.fixed(200))
-        ]
-        
-        var body: some View {
-            
-            NavigationStack {
+    var body: some View {
+        NavigationStack {
+            ZStack {
                 ZStack {
-                    ZStack {
-                        if parkingSpotsModel.dataIsLoaded {
-                            Color.blue
-                                .ignoresSafeArea()
-                            Circle()
-                                .scale(1.7)
-                                .foregroundColor(.white.opacity(0.15))
-                            
-                            
-                            ScrollView {
-                                
-                                LazyVGrid(columns: adaptiveColumns, spacing: 20) {
-                                    ForEach(parkingSpotsModel.parkingSpotCollection.parkingSpots ?? [], id: \.id) { parkingSpot in
+                    if parkingSpotsModel.dataIsLoaded {
+                        Color.blue
+                            .ignoresSafeArea()
+                        Circle()
+                            .scale(1.7)
+                            .foregroundColor(.white.opacity(0.15))
+                        
+                        
+                        ScrollView {
+                            LazyVGrid(columns: adaptiveColumns, spacing: 20) {
+                                ForEach(parkingSpotsModel.parkingSpotCollection.parkingSpots ?? [], id: \.id) { parkingSpot in
+                                    ZStack {
+                                        Rectangle()
+                                            .frame(width: 50, height: 50)
+                                            .foregroundColor(getColor(parkingSpot: parkingSpot))
+                                            .cornerRadius(30)
                                         
                                         
-                                        ZStack {
-                                            Rectangle()
-                                                .frame(width: 50, height: 50)
-                                                .foregroundColor(getColor(parkingSpot: parkingSpot))
-                                                .cornerRadius(30)
-                                            
-                                            
-                                            Button("\(Int(parkingSpot.id) ?? 0)") {
-                                                showingTicket = true
-                                                Task {
-                                                    id = Int(parkingSpot.id) ?? 0
-                                                }
+                                        Button("\(Int(parkingSpot.id) ?? 0)") {
+                                            showingTicket = true
+                                            Task {
+                                                id = Int(parkingSpot.id) ?? 0
                                             }
-                                            .foregroundColor(.white)
-                                            .font(.system(size: 30, design: .rounded))
                                         }
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 30, design: .rounded))
                                     }
                                 }
                             }
-                            .navigationTitle("Parking Spaces")
-                            .padding()
-                            .sheet(isPresented: $showingTicket) {
-                                CheckInTicketPage()
-                            }
+                        }
+                        .navigationTitle("Parking Spaces")
+                        .padding()
+                        .sheet(isPresented: $showingTicket) {
+                            CheckInTicket()
                         }
                     }
-                }.task {
-                    await parkingSpotsModel.fetchParkingSpots()
-                    print(ticket)
                 }
+            }.task {
+                await parkingSpotsModel.fetchParkingSpots()
             }
-            .onAppear {
-                stepId = 4
-//                print("StepID: \(stepId)")
-            }
-//            .navigationBarBackButtonHidden(true)
         }
+        .onAppear {
+            stepId = 4
+        }
+    }
+
+    
+    
     
     func getColor(parkingSpot: ParkingSpotsModel.ParkingSpot)->Color {
         if parkingSpot.isFree == "0" {
@@ -107,6 +92,8 @@ struct ParkingSpaceGrid: View {
         return colors[0]
     }
 }
+
+
 
 
 struct ParkingSpaceGrid_Previews: PreviewProvider {

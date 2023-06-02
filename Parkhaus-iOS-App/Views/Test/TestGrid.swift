@@ -264,7 +264,7 @@ struct TestGrid: View {
                         
                         .navigationDestination(
                             isPresented: $showingLoginScreen) {
-                                CheckInTicketPage()
+                                CheckInTicket()
                             }
                         
     //                    .buttonStyle(PlainButtonStyle())

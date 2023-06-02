@@ -13,8 +13,10 @@ class ParkingSpaceModel: ObservableObject {
         let freeReservedParkingSpaces: Int
     }
     
+    
     @Published var parkingSpaces: ParkingSpaces = ParkingSpaces(freeNormalParkingSpaces: 0, freeReservedParkingSpaces: 0)
     @Published var dataIsLoaded: Bool = false
+    
     
     @MainActor
     func fetchParkingSpaceCounts()  async {

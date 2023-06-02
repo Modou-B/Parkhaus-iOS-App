@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PaymentModal {
+class PaymentModel {
     struct Payment: Decodable, Encodable {
         let arrivedAt: String?
         let departuredAt: String?
@@ -22,6 +22,7 @@ class PaymentModal {
             self.departuredAt = departuredAt
         }
     }
+    
     
     struct LoginResponse: Decodable, Encodable {
         let error: String?

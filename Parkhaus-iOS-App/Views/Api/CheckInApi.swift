@@ -16,6 +16,8 @@ class CheckInApi: AbstractApi {
     @Published var loginResponse: CheckInModel.LoginResponse = CheckInModel.LoginResponse()
     @Published var wasSuccessful: Bool = false
     @Published var hasError: Bool = false
+    
+    
 
     public func checkInShortTermParker(licensePlate: String) async {
         let body = [
@@ -42,6 +44,7 @@ class CheckInApi: AbstractApi {
             
         }
     }
+    
     
     public func checkInLongTermParker(licensePlate: String, username: String, password: String) async {
         let body = [
