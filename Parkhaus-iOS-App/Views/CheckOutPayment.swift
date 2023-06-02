@@ -10,6 +10,7 @@ import SwiftUI
 struct CheckOutPayment: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var carParkingApi = CarParkingApi()
+    @StateObject var checkOutApi = CheckOutApi()
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
@@ -77,6 +78,19 @@ struct CheckOutPayment: View {
                     
                     Button("Pay") {
                         Task {
+                            let paymentString = payment?.utf8 ?? "".utf8
+                            let paymentData = Data(paymentString)
+                            let paymentJSON = try JSONDecoder().decode(PaymentModal.Payment.self, from: paymentData)
+                            
+                            await checkOutApi.directPayment(payment: paymentJSON)
+                            
+                            
+                            let jsonData = try JSONEncoder().encode(checkOutApi.payment)
+                            let jsonString = String(data: jsonData, encoding: .utf8)!
+                            payment = jsonString
+                            
+                            
+//                            print(payment)
                             stepId = 1
 //                            print("StepID: \(stepId)")
                         }
