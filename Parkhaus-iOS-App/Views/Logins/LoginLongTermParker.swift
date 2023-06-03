@@ -37,10 +37,33 @@ struct LoginLongTermParker: View {
                     .ignoresSafeArea()
                 Circle()
                     .scale(1.7)
-                    .foregroundColor(.white.opacity(0.15))
+                    .foregroundColor(.white.opacity(0.5))
                 Circle()
                     .scale(1.35)
-                    .foregroundColor(.white)
+                    .foregroundColor(.purple.opacity(0.15))
+                ZStack {
+                    RoundedRectangle(cornerRadius: 45.87)
+                    .fill(LinearGradient(
+                            gradient: Gradient(stops: [
+                        .init(color: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.6000000238418579)), location: 0),
+                        .init(color: Color(#colorLiteral(red: 0.8509804010391235, green: 0.8509804010391235, blue: 0.8509804010391235, alpha: 0.20000000298023224)), location: 1)]),
+                            startPoint: UnitPoint(x: -0.0015019709411221993, y: 0.011388006885359792),
+                            endPoint: UnitPoint(x: 1.0189002040034465, y: 0.9898934130319252)))
+
+                    RoundedRectangle(cornerRadius: 45.87)
+                    .strokeBorder(LinearGradient(
+                            gradient: Gradient(stops: [
+                        .init(color: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.699999988079071)), location: 0),
+                        .init(color: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.10000000149011612)), location: 1)]),
+                            startPoint: UnitPoint(x: 0.017291056030272978, y: 0.043389347588974614),
+                            endPoint: UnitPoint(x: 0.9767208936133693, y: 0.9648771623222485)), lineWidth: 1.6990679502487183)
+                }
+                .compositingGroup()
+                .frame(width: 412.3, height: 400)
+                .rotationEffect(.degrees(-0))
+                .shadow(color: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05000000074505806)), radius:33.98135757446289, x:22.969558715820312, y:22.969558715820312)
+                
+
 
                 
                 VStack {
@@ -48,6 +71,7 @@ struct LoginLongTermParker: View {
                         .font(.largeTitle)
                         .bold()
                         .padding()
+                    
                     
                     TextField("Username", text: $username)
                         .padding()

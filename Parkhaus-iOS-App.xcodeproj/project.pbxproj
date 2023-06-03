@@ -84,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				7C216B132A17F79E006C9947 /* Views */,
-				7C216B122A17F78B006C9947 /* Navigation */,
 				7C216B042A17CE86006C9947 /* Parkhaus_iOS_AppApp.swift */,
 				7C216B082A17CE86006C9947 /* Assets.xcassets */,
 				7C216B0A2A17CE86006C9947 /* Preview Content */,
@@ -98,13 +97,6 @@
 				7C216B0B2A17CE86006C9947 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		7C216B122A17F78B006C9947 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Navigation;
 			sourceTree = "<group>";
 		};
 		7C216B132A17F79E006C9947 /* Views */ = {
