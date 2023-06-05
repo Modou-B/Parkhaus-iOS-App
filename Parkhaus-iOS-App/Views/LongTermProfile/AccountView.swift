@@ -202,7 +202,7 @@ struct AccountView: View {
                                                         Task {
                                                             
                                                             let paymentId = Int(openPayment.id) ?? 0
-                                                            let accountIdentifier = "135b6b1d-4ac3-401b-81f1-349925c0656b"
+                                                            let accountIdentifier = loginIdentifier ?? ""
                                                             
                                                             await accountOverviewApi.payOpenPayment(identifier: accountIdentifier, paymentId: paymentId)
 
@@ -235,7 +235,7 @@ struct AccountView: View {
                 
             } // End ZStack
             .task {
-                let loginIdentifier = "135b6b1d-4ac3-401b-81f1-349925c0656b"
+                let loginIdentifier = loginIdentifier ?? ""
                 
                 await accountOverviewApi.fetchOpenPayments(identifier: loginIdentifier)
             }
