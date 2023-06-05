@@ -10,16 +10,13 @@ import SwiftUI
 struct LoginLongTermParker: View {
     @State private var username = ""
     @State private var password = ""
-    @State private var licensePlate = ""
     @State private var wrongUsername: Float = 0
     @State private var wrongPassword: Float  = 0
-    @State private var wrongLicensePlate: Float  = 0
     @State private var wasAuthenticationSuccessfull = false
 
     @StateObject var checkInApi = CheckInApi()
     
-    @AppStorage("ticket") var ticket: String?
-    @AppStorage("parkingSpotId") var id: Int?
+    @AppStorage("loginIdentifier") var loginIdentifier: String?
     @AppStorage("step") var stepId: Int?
     
     let wrongUsernameErrorCode: Int = 901
@@ -27,9 +24,7 @@ struct LoginLongTermParker: View {
     
     let date = Date()
     let df = DateFormatter()
-
-    
-    
+ 
     var body: some View {
         NavigationStack {
             ZStack {
@@ -62,57 +57,36 @@ struct LoginLongTermParker: View {
                 .frame(width: 412.3, height: 400)
                 .rotationEffect(.degrees(-0))
                 .shadow(color: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05000000074505806)), radius:33.98135757446289, x:22.969558715820312, y:22.969558715820312)
-                
-
-
-                
+     
                 VStack {
-                    Text("Long Term Parker")
+                    Text("Login as long term parker")
                         .font(.largeTitle)
                         .bold()
                         .padding()
-                    
-                    
+    
                     TextField("Username", text: $username)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongUsername))
-                        
-                    
+    
                     SecureField("Password", text: $password)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongPassword))
-                    
-                    
-                    Spacer()
-                        .frame(height: 20)
-                    
-                    
-                    TextField("License Plate", text: $licensePlate)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.black.opacity(0.05))
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongLicensePlate))
-                    
-                    
+    
                     Spacer()
                         .frame(height: 30)
-                    
-                    
+
                     Button("Login") {
                         Task {
                             resetErrors()
-                            await checkInApi.checkInLongTermParker(licensePlate: licensePlate, username: username, password: password)
+                            await checkInApi.loginLongTermParker(username: username, password: password)
                             if authenticateLogin() {
-                                let jsonData = try JSONEncoder().encode(checkInApi.ticket)
-                                let jsonString = String(data: jsonData, encoding: .utf8)!
-                                ticket = jsonString
+                                loginIdentifier = checkInApi.loginResponse.identifier
                                 self.wasAuthenticationSuccessfull = true
                             }
                         }
@@ -121,7 +95,7 @@ struct LoginLongTermParker: View {
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
                     .cornerRadius(10)
-                    .navigationDestination(isPresented: $wasAuthenticationSuccessfull) { ParkingSpaceGrid() }
+                    .navigationDestination(isPresented: $wasAuthenticationSuccessfull) { AccountView() }
                 }
                 .onAppear {
                     stepId = 2
@@ -129,8 +103,7 @@ struct LoginLongTermParker: View {
             }
         }
     }
-    
-    
+
     private func authenticateLogin()-> Bool {
         if checkInApi.hasError {
             switch checkInApi.loginResponse.errorCode {
@@ -151,15 +124,13 @@ struct LoginLongTermParker: View {
         
         return true
     }
-    
-    
+
     private func resetErrors() {
         self.wrongUsername = 0
         self.wrongPassword = 0
     }
     
 }
-
 
 struct LongTermParkerLogin_Previews: PreviewProvider {
     static var previews: some View {

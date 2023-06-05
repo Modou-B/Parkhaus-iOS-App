@@ -13,8 +13,6 @@ class CarParkingApi: AbstractApi {
 
     @Published var wasSuccessful: Bool = false
 
-    
-    
     public func parkCar(licensePlate: String, parkingSpotId: Int) async {
         let body: [String: Any] = [
             "licensePlate": licensePlate,
@@ -25,10 +23,8 @@ class CarParkingApi: AbstractApi {
             "Content-Type": "application/json",
         ]
         
-        var responseDate: Data? = nil
-        responseDate = await makeRequest(url: self.carParkingUrl, body:body, method: "POST", headers: headers)
+        _ = await makeRequest(url: self.carParkingUrl, body:body, method: "POST", headers: headers)
         
         wasSuccessful = true
     }
 }
-

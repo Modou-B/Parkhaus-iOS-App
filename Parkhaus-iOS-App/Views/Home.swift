@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct Home: View {
-    @State var LongTermParkerLoginLbl = "Long Term Parker"
-    @State var ShortTermParkerLoginLbl = "Short Term Parker"
+    @State var LongTermParkerLoginLbl = "Log into your account"
+    @State var ShortTermParkerLoginLbl = "Park short term"
     @State var LongTermParkingSpacesLbl = "Free Long Term Parking Spaces:"
     @State var ShortTermParkingSpacesLbl = "Free Short Term Parking Spaces:"
     @State private var showingLongTermLoginScreen = false
@@ -21,8 +21,6 @@ struct Home: View {
     @StateObject var parkingSpaceModel = ParkingSpaceModel()
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
-    
-    
     
     var body: some View {
         NavigationStack() {
@@ -59,10 +57,8 @@ struct Home: View {
                     .frame(width: 412.3, height: 311.8)
                     .rotationEffect(.degrees(-0))
                     .shadow(color: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05000000074505806)), radius:33.98135757446289, x:22.969558715820312, y:22.969558715820312)
-                    
-                    
-                    
-                    VStack(alignment: .leading) {
+                     
+                    VStack(alignment: .center) {
                         Text("Parking Lot Home")
                             .font(.largeTitle)
                             .bold()
@@ -75,11 +71,27 @@ struct Home: View {
                             
                             Text("\(ShortTermParkingSpacesLbl) \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
                                 .font(.system(size: 18, weight: .medium, design: .rounded))
-                            
-                            
+ 
                             Spacer()
                                 .frame(height: 30)
+        
+                            Button(ShortTermParkerLoginLbl) {
+                                checkAvailability()
+                                if shortTermButtonDisabled == false {
+                                    showingShortTermLoginScreen = true
+                                }
+                            }
+                            .foregroundColor(.white)
+                            .frame(width: 300, height: 50)
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            .navigationDestination(
+                                isPresented: $showingShortTermLoginScreen) { LoginShortTermParker()}
+                                .alert(isPresented: $shortTermButtonDisabled) {
+                                Alert(title: Text("No free spaces"), message: Text("All short term parking spaces are booked."))}
                             
+                            Spacer()
+                                .frame(height: 10)
                             
                             Button(LongTermParkerLoginLbl) {
                                 checkAvailability()
@@ -95,35 +107,12 @@ struct Home: View {
                                 isPresented: $showingLongTermLoginScreen) { LoginLongTermParker() }
                                 .alert(isPresented: $longTermButtonDisabled) {
                                 Alert(title: Text("No free spaces"), message: Text("All long term and short term parking spaces are booked."))}
-                            
-                            Spacer()
-                                .frame(height: 10)
-                            
-                            
-                            Button(ShortTermParkerLoginLbl) {
-                                checkAvailability()
-                                if shortTermButtonDisabled == false {
-                                    showingShortTermLoginScreen = true
-                                }
-                            }
-                            .foregroundColor(.white)
-                            .frame(width: 300, height: 50)
-                            .background(Color.blue)
-                            .cornerRadius(10)
-                            .navigationDestination(
-                                isPresented: $showingShortTermLoginScreen) { LoginShortTermParker()}
-                            .alert(isPresented: $shortTermButtonDisabled) {
-                            Alert(title: Text("No free spaces"), message: Text("All short term parking spaces are booked."))}
-                            
-                            
                         } else {
                             Text("Loading parking spot data...")
                         }
-
                     }
 //                    .navigationTitle("Home")
                     .onAppear {
-                        
                     }
                 }
             } .task {
@@ -141,7 +130,6 @@ struct Home: View {
             shortTermButtonDisabled = false
         }
         
-        
         if (parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces == 4) && (parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces == 0) {
             longTermButtonDisabled = true
             
@@ -151,8 +139,6 @@ struct Home: View {
         
     }
 }
-
-
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {

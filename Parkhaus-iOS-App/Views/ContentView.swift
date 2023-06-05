@@ -9,7 +9,6 @@ import SwiftUI
 
 let parkingSpaceUrl = "http://127.0.0.1:8080/"
 
-
 struct ContentView: View {
     @AppStorage("step") var id: Int?
     
@@ -33,20 +32,7 @@ struct ContentView: View {
             Home()
         }
     }
-    
-    
-    
-    func checkIfAlreadyInSession() -> Bool {
-        if id != nil {
-            return true
-        }
-        
-        return false
-    }
-    
 }
-
-
 
 struct ContentView_Previews: PreviewProvider {
     

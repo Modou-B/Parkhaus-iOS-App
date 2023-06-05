@@ -16,17 +16,14 @@ class ParkingSpotsModel: ObservableObject {
         }
     }
     
-    
     struct ParkingSpot: Codable {
         let id: String
         let reserved: String
         let isFree: String
     }
-    
-    
+  
     @Published var parkingSpotCollection: ParkingSpotCollection = ParkingSpotCollection()
     @Published var dataIsLoaded: Bool = false
-    
     
     @MainActor
     func fetchParkingSpots()  async {
