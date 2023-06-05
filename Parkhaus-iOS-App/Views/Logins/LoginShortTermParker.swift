@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginShortTermParker: View {
     @State private var licensePlate = ""
-    @State private var wrongLicensePlate: Float  = 0
+    @State private var wrongLicensePlate: Float = 0
     
     @StateObject var checkInApi = CheckInApi()
     @Environment(\.presentationMode) var presentationMode
@@ -17,9 +17,7 @@ struct LoginShortTermParker: View {
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
-    
-    
-    
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -53,28 +51,22 @@ struct LoginShortTermParker: View {
                     .frame(width: 412.3, height: 311.8)
                     .rotationEffect(.degrees(-0))
                     .shadow(color: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05000000074505806)), radius:33.98135757446289, x:22.969558715820312, y:22.969558715820312)
-                    
-
-                                      
-                    
+   
                     VStack {
                         Text("Short Term Parker")
                             .font(.largeTitle)
                             .bold()
                             .padding()
-                        
-                        
+
                         TextField("License Plate", text: $licensePlate)
                             .padding()
                             .frame(width: 300, height: 50)
                             .background(Color.black.opacity(0.05))
                             .cornerRadius(10)
-                        
-                        
+     
                         Spacer()
                             .frame(height: 30)
-                        
-                        
+                     
                         Button("Login") {
                             checkLicenseIsEmpty(licensePlate: licensePlate)
                             
@@ -99,18 +91,15 @@ struct LoginShortTermParker: View {
             }
         }
     }
-    
-    
-    func checkLicenseIsEmpty(licensePlate: String) {
-            if licensePlate.isEmpty {
-                wrongLicensePlate = 2
-            } else {
-                wrongLicensePlate = 0
-            }
+  
+    private func checkLicenseIsEmpty(licensePlate: String) {
+        wrongLicensePlate = 0
+
+        if licensePlate.isEmpty {
+            wrongLicensePlate = 2
+        }
     }
 }
-
-
 
 struct ShortTermParkerLogin_Previews: PreviewProvider {
     static var previews: some View {

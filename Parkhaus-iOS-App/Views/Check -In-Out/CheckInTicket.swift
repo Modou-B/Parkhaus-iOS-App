@@ -83,7 +83,7 @@ struct CheckInTicket: View {
                         Task {
                             let ticketString = ticket?.utf8 ?? "".utf8
                             let ticketData = Data(ticketString)
-                            let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
+                            let ticket = try JSONDecoder().decode(TicketModel.Ticket.self, from: ticketData)
                             await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
                             stepId = 6
                         }

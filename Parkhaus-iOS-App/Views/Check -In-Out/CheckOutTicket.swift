@@ -18,8 +18,6 @@ struct CheckOutTicket: View {
     @AppStorage("step") var stepId: Int?
     @AppStorage("payment") var payment: String?
     
-    
-    
     var body: some View {
             ZStack {
                 Color.blue
@@ -30,8 +28,7 @@ struct CheckOutTicket: View {
                 Circle()
                     .scale(1.35)
                     .foregroundColor(.purple.opacity(0.15))
-                
-                
+      
                 ZStack {
                     RoundedRectangle(cornerRadius: 45.87)
                     .fill(LinearGradient(
@@ -53,8 +50,7 @@ struct CheckOutTicket: View {
                 .frame(width: 412.3, height: 311.8)
                 .rotationEffect(.degrees(-0))
                 .shadow(color: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05000000074505806)), radius:33.98135757446289, x:22.969558715820312, y:22.969558715820312)
-                
-                
+    
 //                    Button(action: {
 //                        presentationMode.wrappedValue.dismiss()
 //                    }, label: {
@@ -64,29 +60,24 @@ struct CheckOutTicket: View {
 //                            .padding(10)
 //                            .frame(height: 50, alignment: .top)
 //                    })
-                
-                
                 VStack{
                     Text("Check-Out Ticket")
                         .font(.largeTitle)
                         .bold()
                         .padding()
-                    
-                    
+
                     Text("Booked parking spot: \(id ?? 0)")
                         .font(.system(size: 30, weight: .medium, design: .rounded))
                         .foregroundColor(Color.green)
-                    
-                    
+
                     Spacer()
                         .frame(height: 30)
-                    
-                    
+
                     Button("Checkout") {
                         Task {
                             let ticketString = ticket?.utf8 ?? "".utf8
                             let ticketData = Data(ticketString)
-                            let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
+                            let ticket = try JSONDecoder().decode(TicketModel.Ticket.self, from: ticketData)
                             await checkOutApi.getPayment(ticket: ticket)
                             let jsonData = try JSONEncoder().encode(checkOutApi.payment)
                             let jsonString = String(data: jsonData, encoding: .utf8)!
@@ -98,14 +89,13 @@ struct CheckOutTicket: View {
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
                     .cornerRadius(10)
-                    
-                    
+
                     if isALongTermParker == true {
                         Button("Fast Checkout (pay later)") {
                             Task {
                                 let ticketString = ticket?.utf8 ?? "".utf8
                                 let ticketData = Data(ticketString)
-                                let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
+                                let ticket = try JSONDecoder().decode(TicketModel.Ticket.self, from: ticketData)
                                 await checkOutApi.payLater(ticket: ticket)
                                 let jsonData = try JSONEncoder().encode(checkOutApi.payment)
                                 let jsonString = String(data: jsonData, encoding: .utf8)!
@@ -125,7 +115,7 @@ struct CheckOutTicket: View {
                 Task{
                     let ticketString = ticket?.utf8 ?? "".utf8
                     let ticketData = Data(ticketString)
-                    let ticket = try JSONDecoder().decode(CheckInModel.Ticket.self, from: ticketData)
+                    let ticket = try JSONDecoder().decode(TicketModel.Ticket.self, from: ticketData)
                     if ticket.longTermParkerId != nil {
                         isALongTermParker = true
                     }
@@ -133,9 +123,7 @@ struct CheckOutTicket: View {
                 }
             }
         }
-    
     }
-
 
 struct CheckOutTicketPage_Previews: PreviewProvider {
     static var previews: some View {

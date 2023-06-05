@@ -9,16 +9,16 @@ import Foundation
 
 @MainActor
 class CheckInApi: AbstractApi {
-    let getPaymentUrl: String = "http://127.0.0.1:8080/CheckIn/ShortTermParker"
-    let payLaterUrl: String = "http://127.0.0.1:8080/CheckIn/LongTermParker"
+    let shortTermCheckingUrl: String = "http://127.0.0.1:8080/CheckIn/ShortTermParker"
+    let longTermCheckIn: String = "http://127.0.0.1:8080/CheckIn/LongTermParker"
+    let longTermLogin: String = "http://127.0.0.1:8080/CheckIn/LongTermParker/Login"
 
-    @Published var ticket: CheckInModel.Ticket = CheckInModel.Ticket()
-    @Published var loginResponse: CheckInModel.LoginResponse = CheckInModel.LoginResponse()
+    
+    @Published var ticket: TicketModel.Ticket = TicketModel.Ticket()
+    @Published var loginResponse: TicketModel.LoginResponse = TicketModel.LoginResponse()
     @Published var wasSuccessful: Bool = false
     @Published var hasError: Bool = false
-    
-    
-
+  
     public func checkInShortTermParker(licensePlate: String) async {
         let body = [
             "licensePlate": licensePlate,
@@ -29,14 +29,14 @@ class CheckInApi: AbstractApi {
         ]
         
         var responseDate: Data? = nil
-        responseDate = await makeRequest(url: self.getPaymentUrl, body:body, method: "POST", headers: headers)
+        responseDate = await makeRequest(url: self.shortTermCheckingUrl, body:body, method: "POST", headers: headers)
         
         if responseDate == nil {
             return
         }
         
         do {
-            let decodedResult = try JSONDecoder().decode(CheckInModel.Ticket.self, from: responseDate ?? Data())
+            let decodedResult = try JSONDecoder().decode(TicketModel.Ticket.self, from: responseDate ?? Data())
             ticket = decodedResult
             wasSuccessful = true
         } catch {
@@ -45,10 +45,35 @@ class CheckInApi: AbstractApi {
         }
     }
     
-    
-    public func checkInLongTermParker(licensePlate: String, username: String, password: String) async {
+    public func checkInLongTermParker(licensePlate: String, identifier: String) async {
         let body = [
             "licensePlate": licensePlate,
+            "identifier": identifier,
+        ]
+        
+        let headers = [
+            "Content-Type": "application/json",
+        ]
+        
+        var responseDate: Data? = nil
+        responseDate = await makeRequest(url: self.longTermCheckIn, body:body, method: "POST", headers: headers)
+        
+        if responseDate == nil {
+            return
+        }
+        
+        do {
+            let decodedTicketResult = try JSONDecoder().decode(TicketModel.Ticket.self, from: responseDate ?? Data())
+            
+            ticket = decodedTicketResult
+            wasSuccessful = true
+        } catch {
+            print("Invalid Response Data")
+        }
+    }
+    
+    public func loginLongTermParker(username: String, password: String) async {
+        let body = [
             "username": username,
             "password": password,
         ]
@@ -57,28 +82,28 @@ class CheckInApi: AbstractApi {
             "Content-Type": "application/json",
         ]
         
-        var responseDate: Data? = nil
-        responseDate = await makeRequest(url: self.payLaterUrl, body:body, method: "POST", headers: headers)
+        print(body)
+        print(password)
+        var responseData: Data? = nil
+        responseData = await makeRequest(url: self.longTermLogin, body:body, method: "POST", headers: headers)
         
-        if responseDate == nil {
+        if responseData == nil {
             return
         }
         
         do {
-            let decodedLoginResponseResult = try JSONDecoder().decode(CheckInModel.LoginResponse.self, from: responseDate ?? Data())
+            let decodedLoginResponseResult = try JSONDecoder().decode(TicketModel.LoginResponse.self, from: responseData ?? Data())
             loginResponse = decodedLoginResponseResult
     
             if (loginResponse.error != nil) {
                 hasError = true
+                
                 return
             }
             
-            let decodedTicketResult = try JSONDecoder().decode(CheckInModel.Ticket.self, from: responseDate ?? Data())
-            ticket = decodedTicketResult
             wasSuccessful = true
         } catch {
             print("Invalid Response Data")
         }
     }
 }
-

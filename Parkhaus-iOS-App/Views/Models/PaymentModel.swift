@@ -9,13 +9,14 @@ import Foundation
 
 class PaymentModel {
     struct Payment: Decodable, Encodable {
+        let parkerIdentifier: String?
         let arrivedAt: String?
         let departuredAt: String?
         let licensePlate: String?
         let amount: Float?
         
-        
-        init(licesePlate: String? = nil, arrivedAt: String? = nil, amount: Float? = nil, departuredAt: String? = nil) {
+        init(parkerIdentifier: String? = nil, licesePlate: String? = nil, arrivedAt: String? = nil, amount: Float? = nil, departuredAt: String? = nil) {
+            self.parkerIdentifier = parkerIdentifier
             self.licensePlate = licesePlate
             self.arrivedAt = arrivedAt
             self.amount = amount
@@ -23,7 +24,22 @@ class PaymentModel {
         }
     }
     
+    struct OpenPaymentCollection: Codable {
+        let openPayments: [OpenPayment]?
+        
+        init(openPayments: [OpenPayment]? = []) {
+            self.openPayments = openPayments
+        }
+    }
     
+    struct OpenPayment: Codable, Identifiable {
+        let id: String
+        let arrivedAt: String
+        let departuredAt: String
+        let licensePlate: String
+        let amount: String
+    }
+   
     struct LoginResponse: Decodable, Encodable {
         let error: String?
         let errorCode: Int?

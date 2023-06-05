@@ -14,8 +14,11 @@ struct ParkingSpaceGrid: View {
     @StateObject var carParkingApi = CarParkingApi()
     
     @AppStorage("ticket") var ticket: String?
+
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
+
+    private var ticketModel: TicketModel.Ticket? = nil
 
     private let data: [Int] = Array(1...180)
     private let colors: [Color] = [.green, .red, .gray]
@@ -23,10 +26,7 @@ struct ParkingSpaceGrid: View {
     private let adaptiveColumns = [
         GridItem(.adaptive(minimum: 50))
     ]
-    
-    
-    
-        
+         
     var body: some View {
         NavigationStack {
             ZStack {
@@ -40,7 +40,6 @@ struct ParkingSpaceGrid: View {
 //                        Circle()
 //                            .scale(1.35)
 //                            .foregroundColor(.purple.opacity(0.15))
-                        
 
                         ZStack {
                             RoundedRectangle(cornerRadius: 45.87)
@@ -63,8 +62,7 @@ struct ParkingSpaceGrid: View {
                         .frame(width: 380, height: 680)
                         .rotationEffect(.degrees(-0))
                         .shadow(color: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.05000000074505806)), radius:33.98135757446289, x:22.969558715820312, y:22.969558715820312)
-                        
-                        
+
                         ScrollView {
                             LazyVGrid(columns: adaptiveColumns, spacing: 20) {
                                 ForEach(parkingSpotsModel.parkingSpotCollection.parkingSpots ?? [], id: \.id) { parkingSpot in
@@ -103,8 +101,11 @@ struct ParkingSpaceGrid: View {
         }
     }
 
-    
-    
+    private mutating func initTicket()-> Void {
+        let ticketString = ticket?.utf8 ?? "".utf8
+        let ticketData = Data(ticketString)
+        ticketModel = try? JSONDecoder().decode(TicketModel.Ticket.self, from: ticketData)
+    }
     
     func getColor(parkingSpot: ParkingSpotsModel.ParkingSpot)->Color {
         if parkingSpot.isFree == "0" {
@@ -118,9 +119,6 @@ struct ParkingSpaceGrid: View {
         return colors[0]
     }
 }
-
-
-
 
 struct ParkingSpaceGrid_Previews: PreviewProvider {
     static var previews: some View {

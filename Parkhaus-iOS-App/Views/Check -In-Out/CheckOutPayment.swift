@@ -21,8 +21,6 @@ struct CheckOutPayment: View {
     @AppStorage("step") var stepId: Int?
     @AppStorage("payment") var payment: String?
     
-    
-    
     var body: some View {
             ZStack {
                 Color.blue
@@ -33,8 +31,6 @@ struct CheckOutPayment: View {
                 Circle()
                     .scale(1.35)
                     .foregroundColor(.purple.opacity(0.15))
-                
-                
                 
                 ZStack {
                     RoundedRectangle(cornerRadius: 45.87)
@@ -69,32 +65,26 @@ struct CheckOutPayment: View {
                 //                            .frame(height: 50, alignment: .top)
                 //                    })
                 
-                
                 VStack{
                     Text("Payment Transaction")
                         .font(.largeTitle)
                         .bold()
                         .padding()
                     
-                    
                     Text("Parking spot: \(id ?? 0)")
                         .font(.system(size: 30, weight: .medium, design: .rounded))
                         .foregroundColor(Color.green)
                     
-                    
                     Spacer()
                         .frame(height: 50)
-                    
                     
                     VStack(alignment: .center) {
                         Text("PAYMENT AMOUNT: \(paymentStruct.amount ?? 0)")
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                             .foregroundColor(Color.black.opacity(0.7))
                         
-                        
                         Spacer()
                             .frame(height: 10)
-                        
                         
                         VStack(alignment: .trailing) {
                             Text("ARRIVED AT: \(paymentStruct.arrivedAt ?? "")")
@@ -104,20 +94,15 @@ struct CheckOutPayment: View {
                             Spacer()
                                 .frame(height: 10)
                             
-                            
                             Text("DEPARTURED AT: \(paymentStruct.departuredAt ?? "")")
                                 .font(.system(size: 15, weight: .medium, design: .rounded))
                                 .foregroundColor(Color.black.opacity(0.7))
-                            
                             
                             Spacer()
                                 .frame(height: 30)
                         }
                         
-                        
-                        
                     }
-                    
                     
                     Button("Pay") {
                         Task {
@@ -142,9 +127,8 @@ struct CheckOutPayment: View {
                 loadPaymentData()
             }
     }
-    
-    
-    private func loadPaymentData() -> Bool {
+
+    private func loadPaymentData() -> Void {
         let paymentString = payment?.utf8 ?? "".utf8
         let paymentData = Data(paymentString)
         do {
@@ -152,19 +136,12 @@ struct CheckOutPayment: View {
         }
         catch {
             print("Data cannont be loaded")
-            
-            return false
         }
-        
-        return true
     }
-    
 }
-
 
 struct CheckOutPayment_Previews: PreviewProvider {
     static var previews: some View {
         CheckOutPayment()
     }
 }
-
