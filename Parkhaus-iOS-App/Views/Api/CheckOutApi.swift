@@ -28,17 +28,17 @@ class CheckOutApi: AbstractApi {
             "Content-Type": "application/json",
         ]
 
-        var responseDate: Data? = nil
-        responseDate = await makeRequest(url: self.getPaymentUrl, body:body, method: "POST", headers: headers)
+        var responseData: Data? = nil
+        responseData = await makeRequest(url: self.getPaymentUrl, body:body, method: "POST", headers: headers)
 
-        if responseDate == nil {
+        if responseData == nil {
             return
         }
 
         do {
-            let decodedResult = try JSONDecoder().decode(PaymentModel.Payment.self,from: responseDate ?? Data())
+            let decodedResult = try JSONDecoder().decode(PaymentModel.Payment.self,from: responseData ?? Data())
+            
             payment = decodedResult
-            print("\(payment)")
             wasSuccessful = true
         } catch {
             print("Invalid Response Data")
@@ -59,10 +59,10 @@ class CheckOutApi: AbstractApi {
         ]
         
         
-        var responseDate: Data? = nil
-        responseDate = await makeRequest(url: self.payLaterUrl, body:body, method: "POST", headers: headers)
+        var responseData: Data? = nil
+        responseData = await makeRequest(url: self.payLaterUrl, body:body, method: "POST", headers: headers)
 
-        if responseDate == nil {
+        if responseData == nil {
             return
         }
     }
