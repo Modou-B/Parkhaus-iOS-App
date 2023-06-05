@@ -25,7 +25,7 @@ struct AccountView: View {
     let df = DateFormatter()
  
     private let adaptiveColumns = [
-        GridItem(.adaptive(minimum: 50))
+        GridItem(.fixed(10))
     ]
     
     var body: some View {
@@ -120,47 +120,113 @@ struct AccountView: View {
                                 endPoint: UnitPoint(x: 0.9767208936133693, y: 0.9648771623222485)), lineWidth: 1.6990679502487183)
                         
                         VStack {
-                            Text("Open bills")
+                            Text("Open Payments")
                                 .font(.largeTitle)
                                 .bold()
                                 .padding()
                             
+                            Spacer()
+                                .frame(height: 65)
+                            
                             if (accountOverviewApi.wasSuccessful) {
-                                ScrollView {
-                                    LazyVGrid(columns: adaptiveColumns, spacing: 20) {
-                                        ForEach(accountOverviewApi.openPaymentCollection.openPayments ?? [], id: \.id) { openPayment in
-                                            VStack {
-                                                ZStack {
-                                                    Rectangle()
-                                                        .frame(width: 50, height: 50)
-                                                        .foregroundColor(.blue)
-                                                    
-                                                    VStack {
-                                                        Text("\(openPayment.arrivedAt)")
-                                                            .bold()
-                                                            .padding()
-                                                        
+                                LazyVGrid(columns: adaptiveColumns, spacing: 20) {
+                                    ForEach(accountOverviewApi.openPaymentCollection.openPayments ?? [], id: \.id) { openPayment in
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 60.87)
+                                                    .fill(LinearGradient(
+                                                        gradient: Gradient(stops: [
+                                                            .init(color: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), location: 0),
+                                                            .init(color: Color(#colorLiteral(red: 0.8574570005, green: 0.9924823722, blue: 0.9554229051, alpha: 1)), location: 1)]),
+                                                        startPoint: UnitPoint(x: -0.0015019709411221993, y: 0.011388006885359792),
+                                                        endPoint: UnitPoint(x: 1.0189002040034465, y: 0.9898934130319252)))
+                                                    .frame(width: 400)
+
+                                                RoundedRectangle(cornerRadius: 60.87)
+                                                    .strokeBorder(LinearGradient(
+                                                        gradient: Gradient(stops: [
+                                                            .init(color: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.699999988079071)), location: 0),
+                                                            .init(color: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.10000000149011612)), location: 1)]),
+                                                        startPoint: UnitPoint(x: 0.017291056030272978, y: 0.043389347588974614),
+                                                        endPoint: UnitPoint(x: 0.9767208936133693, y: 0.9648771623222485)), lineWidth: 1.6990679502487183)
+                                                
+                                                VStack(alignment: .leading) {
+                                                    Group {
+                                                        HStack(alignment: .center, spacing: 20) {
+                                                            Text("Payment No.:")
+                                                                .font(.title)
+                                                                .bold()
+                                                            Text("\(openPayment.id)")
+                                                                .font(.title)
+                                                        }
                                                         Spacer()
-                                                            .frame(height: 30)
-                                                        
-                                                        HStack {
-                                                            Text("\(openPayment.amount)")
+                                                            .frame(height: 10)
+                                                        HStack(alignment: .center, spacing: 20) {
+                                                            Text("Amount:")
+                                                                .font(.body)
                                                                 .bold()
-                                                                .padding()
+                                                            Text("\(openPayment.amount) €")
+                                                                .font(.body)
+                                                        }
+                                                        Spacer()
+                                                            .frame(height: 5)
+                                                        HStack(alignment: .center, spacing: 20) {
+                                                            Text("License plate:")
+                                                                .font(.body)
+                                                                .bold()
                                                             Text("\(openPayment.licensePlate)")
+                                                                .font(.body)
+                                                        }
+                                                        Spacer()
+                                                            .frame(height: 5)
+                                                        HStack(alignment: .center, spacing: 20) {
+                                                            Text("Arrival Time:")
+                                                                .font(.body)
                                                                 .bold()
-                                                                .padding()
+                                                            Text("\(openPayment.arrivedAt)")
+                                                                .font(.body)
+                                                        }
+                                                        Spacer()
+                                                            .frame(height: 5)
+                                                        HStack(alignment: .center, spacing: 20) {
+                                                            Text("Departure Time:")
+                                                                .font(.body)
+                                                                .bold()
                                                             Text("\(openPayment.departuredAt)")
-                                                                .bold()
-                                                                .padding()
+                                                                .font(.body)
+                                                        }
+                                                        Spacer()
+                                                            .frame(height: 20)
+                                                        
+                                                    }
+                                                    Button("Pay Now") {
+                                                        Task {
+                                                            
+                                                            let paymentId = Int(openPayment.id) ?? 0
+                                                            let accountIdentifier = loginIdentifier ?? ""
+                                                            
+                                                            await accountOverviewApi.payOpenPayment(identifier: accountIdentifier, paymentId: paymentId)
+
+                                                            await accountOverviewApi.fetchOpenPayments(identifier: accountIdentifier)
+
                                                         }
                                                     }
-                                                    
+                                                    .foregroundColor(Color.blue.opacity(1))
+                                                    .font(.title2)
+                                                    .bold()
                                                 }
+                                             
+                                                
                                             }
-                                        }
+                                            .frame(height: 200)
+
+                                        Spacer()
+                                            .frame(height: 30)
+                                        
                                     }
-                                } // End ScrollView
+                                    .frame(height: 100)
+                            
+                                }
+                       
                             }
                            
                         } // End VStack

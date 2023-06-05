@@ -19,7 +19,6 @@ class AccountOverviewApi: AbstractApi {
 
         let finishedUrl = self.openPaymentsUrl + identifier
 
-        print(finishedUrl)
         let responseData = await makeGetRequest(url: finishedUrl, headers: headers)
 
         if responseData == nil {
@@ -35,5 +34,19 @@ class AccountOverviewApi: AbstractApi {
             print("Invalid Response Data")
 
         }
+    }
+    
+    public func payOpenPayment(identifier: String, paymentId: Int) async {
+        let body: [String: Any] = [
+            "paymentId": paymentId,
+        ]
+        
+        let headers = [
+            "Content-Type": "application/json",
+        ]
+
+        let finishedUrl = self.openPaymentsUrl + identifier
+
+        let responseData = await makeRequest(url: finishedUrl, body:body, method: "POST", headers: headers)
     }
 }
