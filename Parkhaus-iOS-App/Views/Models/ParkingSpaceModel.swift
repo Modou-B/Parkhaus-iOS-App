@@ -8,6 +8,8 @@
 import SwiftUI
 
 class ParkingSpaceModel: ObservableObject {
+    let freeParkingSpotsCountUrl: String = "http://127.0.0.1:8080/checkIn/freeParkingSpotCount"
+
     struct ParkingSpaces: Codable {
         let freeNormalParkingSpaces: Int
         let freeReservedParkingSpaces: Int
@@ -18,7 +20,7 @@ class ParkingSpaceModel: ObservableObject {
     
     @MainActor
     func fetchParkingSpaceCounts()  async {
-        guard let url = URL(string: "http://127.0.0.1:8080/") else {
+        guard let url = URL(string: self.freeParkingSpotsCountUrl) else {
             return
         }
 

@@ -9,9 +9,9 @@ import Foundation
 
 @MainActor
 class CheckOutApi: AbstractApi {
-    let getPaymentUrl: String = "http://127.0.0.1:8080/CheckOut/GetPayment"
-    let payLaterUrl: String = "http://127.0.0.1:8080/CheckOut/PayLater"
-    let directPaymentUrl: String = "http://127.0.0.1:8080/CheckOut/DirectPayment"
+    let getPaymentUrl: String = "http://127.0.0.1:8080/checkOut/getPayment"
+    let payLaterUrl: String = "http://127.0.0.1:8080/checkOut/later"
+    let directPaymentUrl: String = "http://127.0.0.1:8080/checkOut/direct"
     
     @Published var payment: PaymentModel.Payment = PaymentModel.Payment()
     @Published var wasSuccessful: Bool = false

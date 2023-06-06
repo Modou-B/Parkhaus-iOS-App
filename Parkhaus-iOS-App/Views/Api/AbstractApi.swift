@@ -13,9 +13,7 @@ class AbstractApi: ObservableObject {
         guard let url = URL(string: url) else {
             return nil
         }
-        
-        print("Making api call...")
-
+       
         var request = URLRequest(url: url)
         request.httpMethod = method
         
@@ -41,8 +39,6 @@ class AbstractApi: ObservableObject {
             return nil
         }
         
-        print("Making api call...")
-
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         

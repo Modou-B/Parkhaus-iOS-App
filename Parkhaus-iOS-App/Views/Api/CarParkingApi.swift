@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 class CarParkingApi: AbstractApi {
-    let carParkingUrl: String = "http://127.0.0.1:8080/Status/CarParking"
+    let carParkingUrl: String = "http://127.0.0.1:8080/status/parkCar"
 
     @Published var wasSuccessful: Bool = false
 
