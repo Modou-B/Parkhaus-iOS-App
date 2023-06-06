@@ -97,7 +97,7 @@ struct ParkingSpaceGrid: View {
             }
         }
         .onAppear {
-            stepId = 4
+            stepId = 5
         }
     }
 

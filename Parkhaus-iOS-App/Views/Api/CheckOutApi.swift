@@ -48,17 +48,19 @@ class CheckOutApi: AbstractApi {
     
     public func payLater(ticket: TicketModel.Ticket) async {
         let body: [String: Any] = [
-            "parkerIndentifier": ticket.parkerIdentifier ?? "",
+            "parkerIdentifier": ticket.parkerIdentifier ?? "",
             "licensePlate": ticket.licensePlate ?? "",
             "arrivedAt": ticket.arrivedAt ?? "",
             "longTermParkerId": ticket.longTermParkerId ?? 0,
         ]
         
+        print(body)
         let headers = [
             "Content-Type": "application/json",
         ]
         
         
+        print(self.payLaterUrl)
         var responseDate: Data? = nil
         responseDate = await makeRequest(url: self.payLaterUrl, body:body, method: "POST", headers: headers)
 
@@ -69,7 +71,7 @@ class CheckOutApi: AbstractApi {
 
     public func directPayment(payment: PaymentModel.Payment) async {
         let body: [String: Any] = [
-            "parkerIndentifier": payment.parkerIdentifier ?? "",
+            "parkerIdentifier": payment.parkerIdentifier ?? "",
             "licensePlate": payment.licensePlate ?? "",
             "arrivedAt": payment.arrivedAt ?? "",
             "departuredAt": payment.departuredAt ?? "",

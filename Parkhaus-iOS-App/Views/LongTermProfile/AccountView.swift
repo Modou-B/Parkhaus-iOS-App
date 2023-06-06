@@ -93,7 +93,7 @@ struct AccountView: View {
                             
                         } // End VStack
                         .onAppear {
-                            stepId = 2
+                            stepId = 3
                         }
                         
                     } // End ZStack

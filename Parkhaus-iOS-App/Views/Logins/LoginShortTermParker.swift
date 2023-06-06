@@ -85,7 +85,7 @@ struct LoginShortTermParker: View {
                             .disabled(licensePlate.isEmpty)
                     }
                     .onAppear {
-                        stepId = 3
+                        stepId = 4
                     }
                 }
             }

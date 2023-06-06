@@ -82,7 +82,7 @@ struct CheckOutTicket: View {
                             let jsonData = try JSONEncoder().encode(checkOutApi.payment)
                             let jsonString = String(data: jsonData, encoding: .utf8)!
                             payment = jsonString
-                            stepId = 7
+                            stepId = 8
                         }
                     }
                     .foregroundColor(.white)

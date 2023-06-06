@@ -28,10 +28,13 @@ class AccountOverviewApi: AbstractApi {
         do {
             let decodedResult = try JSONDecoder().decode(PaymentModel.OpenPaymentCollection.self, from: responseData ?? Data())
         
+            print(decodedResult)
+            print("asdasd")
             openPaymentCollection = decodedResult
+            
             wasSuccessful = true
         } catch {
-            print("Invalid Response Data")
+            print("Invalid Response Dataasd")
 
         }
     }

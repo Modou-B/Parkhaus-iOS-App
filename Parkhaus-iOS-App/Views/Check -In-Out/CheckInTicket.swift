@@ -85,7 +85,7 @@ struct CheckInTicket: View {
                             let ticketData = Data(ticketString)
                             let ticket = try JSONDecoder().decode(TicketModel.Ticket.self, from: ticketData)
                             await carParkingApi.parkCar(licensePlate: ticket.licensePlate ?? "", parkingSpotId: id ?? 0)
-                            stepId = 6
+                            stepId = 7
                         }
                     }
                     .foregroundColor(.white)
@@ -93,6 +93,7 @@ struct CheckInTicket: View {
                     .background(Color.blue)
                     .cornerRadius(10)
                 }
+                
             }
             .navigationBarBackButtonHidden()
         }
