@@ -9,9 +9,9 @@ import Foundation
 
 @MainActor
 class CheckInApi: AbstractApi {
-    let shortTermCheckingUrl: String = "http://127.0.0.1:8080/CheckIn/ShortTermParker"
-    let longTermCheckIn: String = "http://127.0.0.1:8080/CheckIn/LongTermParker"
-    let longTermLogin: String = "http://127.0.0.1:8080/CheckIn/LongTermParker/Login"
+    let shortTermCheckingUrl: String = "http://127.0.0.1:8080/checkIn/shortTermParker"
+    let longTermCheckIn: String = "http://127.0.0.1:8080/checkIn/longTermParker"
+    let longTermLogin: String = "http://127.0.0.1:8080/checkIn/longTermParker/login"
 
     
     @Published var ticket: TicketModel.Ticket = TicketModel.Ticket()
@@ -81,9 +81,7 @@ class CheckInApi: AbstractApi {
         let headers = [
             "Content-Type": "application/json",
         ]
-        
-        print(body)
-        print(password)
+    
         var responseData: Data? = nil
         responseData = await makeRequest(url: self.longTermLogin, body:body, method: "POST", headers: headers)
         

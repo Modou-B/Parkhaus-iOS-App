@@ -8,6 +8,8 @@
 import SwiftUI
 
 class ParkingSpotsModel: ObservableObject {
+    let parkingSpotsUrl: String = "http://127.0.0.1:8080/status/parkingSpots"
+
     struct ParkingSpotCollection: Codable {
         let parkingSpots: [ParkingSpot]?
         
@@ -27,7 +29,7 @@ class ParkingSpotsModel: ObservableObject {
     
     @MainActor
     func fetchParkingSpots()  async {
-        guard let url = URL(string: "http://127.0.0.1:8080/parkingSpots") else {
+        guard let url = URL(string: self.parkingSpotsUrl) else {
             return
         }
 

@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 class AccountOverviewApi: AbstractApi {
-    let openPaymentsUrl: String = "http://127.0.0.1:8080/openPayments/"
+    let openPaymentsUrl: String = "http://127.0.0.1:8080/payments/openPayments/"
 
     @Published var openPaymentCollection: PaymentModel.OpenPaymentCollection = PaymentModel.OpenPaymentCollection()
     @Published var wasSuccessful: Bool = false
