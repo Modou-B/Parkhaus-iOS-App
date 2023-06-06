@@ -7,29 +7,29 @@
 
 import SwiftUI
 
-let parkingSpaceUrl = "http://127.0.0.1:8080/"
-
 struct ContentView: View {
     @AppStorage("step") var id: Int?
-    
+        
     var body: some View {
         switch id {
-        case 1:
-            Home()
-        case 2:
-            LoginLongTermParker()
-        case 3 :
-            LoginShortTermParker()
-        case 4:
-            ParkingSpaceGrid()
-        case 5:
-            CheckInTicket()
-        case 6:
-            CheckOutTicket()
-        case 7:
-            CheckOutPayment()
-        default:
-            Home()
+            case 1:
+                Home()
+            case 2:
+                LoginLongTermParker()
+            case 3:
+                AccountView()
+            case 4 :
+                LoginShortTermParker()
+            case 5:
+                ParkingSpaceGrid()
+            case 6:
+                CheckInTicket()
+            case 7:
+                CheckOutTicket()
+            case 8:
+                CheckOutPayment()
+            default:
+                Home()
         }
     }
 }

@@ -113,6 +113,7 @@ struct Home: View {
                     }
 //                    .navigationTitle("Home")
                     .onAppear {
+                        stepId = 1
                     }
                 }
             } .task {

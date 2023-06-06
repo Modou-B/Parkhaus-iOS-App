@@ -55,9 +55,15 @@ class CheckInApi: AbstractApi {
             "Content-Type": "application/json",
         ]
         
+        print(licensePlate)
+        print(identifier)
+
+        print(body)
         var responseDate: Data? = nil
         responseDate = await makeRequest(url: self.longTermCheckIn, body:body, method: "POST", headers: headers)
         
+        print(responseDate)
+
         if responseDate == nil {
             return
         }
@@ -99,9 +105,11 @@ class CheckInApi: AbstractApi {
                 return
             }
             
+            hasError = false
             wasSuccessful = true
         } catch {
             print("Invalid Response Data")
         }
     }
+ 
 }
