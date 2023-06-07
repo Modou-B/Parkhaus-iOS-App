@@ -78,6 +78,9 @@ struct AccountView: View {
                             Button("CheckIn") {
                                 Task {
                                     checkAvailability()
+                                    if longTermButtonDisabled {
+                                        stepId = 1
+                                    }
                                     if longTermButtonDisabled == false {
                                         let loginIdentifier = loginIdentifier ?? ""
                                         await checkInApi.checkInLongTermParker(licensePlate: licensePlate, identifier: loginIdentifier)
@@ -86,6 +89,7 @@ struct AccountView: View {
                                         let jsonString = String(data: jsonData, encoding: .utf8)!
                                         ticket = jsonString
                                         isLongTermParker = true
+                                        
                                     }
                                 }
                             }
