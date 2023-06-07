@@ -12,8 +12,8 @@ struct LoginShortTermParker: View {
     @State private var wrongLicensePlate: Float = 0
     
     @StateObject var checkInApi = CheckInApi()
-    @Environment(\.presentationMode) var presentationMode
     
+    @AppStorage("isShortTermParker") var isShortTermParker: Bool?
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
@@ -75,6 +75,8 @@ struct LoginShortTermParker: View {
                                 let jsonData = try JSONEncoder().encode(checkInApi.ticket)
                                 let jsonString = String(data: jsonData, encoding: .utf8)!
                                 ticket = jsonString
+                                isShortTermParker = true
+
                             }
                         }
                         .foregroundColor(.white)

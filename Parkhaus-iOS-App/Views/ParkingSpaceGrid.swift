@@ -14,11 +14,11 @@ struct ParkingSpaceGrid: View {
     @StateObject var carParkingApi = CarParkingApi()
     
     @AppStorage("ticket") var ticket: String?
+    @AppStorage("isShortTermParker") var isShortTermParker: Bool?
+    @AppStorage("isLongTermParker") var isLongTermParker: Bool?
 
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
-
-    private var ticketModel: TicketModel.Ticket? = nil
 
     private let data: [Int] = Array(1...180)
     private let colors: [Color] = [.green, .red, .gray]
@@ -79,6 +79,7 @@ struct ParkingSpaceGrid: View {
                                                 id = Int(parkingSpot.id) ?? 0
                                             }
                                         }
+                                        .disabled(disableButtonByCriteria(parkingSpot: parkingSpot))
                                         .foregroundColor(.white)
                                         .font(.system(size: 30, design: .rounded))
                                     }
@@ -92,22 +93,30 @@ struct ParkingSpaceGrid: View {
                         }
                     }
                 }
-            }.task {
-                await parkingSpotsModel.fetchParkingSpots()
+                .onAppear {
+                    stepId = 5
+                }
+                .task {
+                    await parkingSpotsModel.fetchParkingSpots()
+                }
             }
-        }
-        .onAppear {
-            stepId = 5
         }
     }
 
-    private mutating func initTicket()-> Void {
-        let ticketString = ticket?.utf8 ?? "".utf8
-        let ticketData = Data(ticketString)
-        ticketModel = try? JSONDecoder().decode(TicketModel.Ticket.self, from: ticketData)
+    private func disableButtonByCriteria(parkingSpot: ParkingSpotsModel.ParkingSpot)->Bool {
+        
+        if parkingSpot.isFree == "0" {
+            return true
+        }
+        
+        if isShortTermParker == true && parkingSpot.reserved == "1" {
+            return true
+        }
+        
+        return false
+            
     }
-    
-    func getColor(parkingSpot: ParkingSpotsModel.ParkingSpot)->Color {
+    private func getColor(parkingSpot: ParkingSpotsModel.ParkingSpot)->Color {
         if parkingSpot.isFree == "0" {
             return colors[1]
         }

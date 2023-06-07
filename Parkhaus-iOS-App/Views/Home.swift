@@ -10,16 +10,17 @@ import SwiftUI
 struct Home: View {
     @State var LongTermParkerLoginLbl = "Log into your account"
     @State var ShortTermParkerLoginLbl = "Park short term"
-    @State var LongTermParkingSpacesLbl = "Free Long Term Parking Spaces:"
     @State var ShortTermParkingSpacesLbl = "Free Short Term Parking Spaces:"
     @State private var showingLongTermLoginScreen = false
     @State private var showingShortTermLoginScreen = false
     @State private var showCheckOut = false
     @State private var shortTermButtonDisabled = false
-    @State private var longTermButtonDisabled = false
     
     @StateObject var parkingSpaceModel = ParkingSpaceModel()
     @AppStorage("parkingSpotId") var id: Int?
+    @AppStorage("freeNormalParkingSpaces") var freeNormalParkingSpaces: Int?
+    @AppStorage("freeReservedParkingSpaces") var freeReservedParkingSpaces: Int?
+
     @AppStorage("step") var stepId: Int?
     
     var body: some View {
@@ -65,11 +66,7 @@ struct Home: View {
                             .padding()
                         
                         if parkingSpaceModel.dataIsLoaded {
-                            Text("\(LongTermParkingSpacesLbl) \(parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces)")
-                                .font(.system(size: 18, weight: .medium, design: .rounded))
-                            
-                            
-                            Text("\(ShortTermParkingSpacesLbl) \(parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces)")
+                            Text("\(ShortTermParkingSpacesLbl) \(freeNormalParkingSpaces ?? 0)")
                                 .font(.system(size: 18, weight: .medium, design: .rounded))
  
                             Spacer()
@@ -94,10 +91,7 @@ struct Home: View {
                                 .frame(height: 10)
                             
                             Button(LongTermParkerLoginLbl) {
-                                checkAvailability()
-                                if longTermButtonDisabled == false {
-                                    showingLongTermLoginScreen = true
-                                }
+                                showingLongTermLoginScreen = true
                             }
                             .foregroundColor(.white)
                             .frame(width: 300, height: 50)
@@ -105,8 +99,7 @@ struct Home: View {
                             .cornerRadius(10)
                             .navigationDestination(
                                 isPresented: $showingLongTermLoginScreen) { LoginLongTermParker() }
-                                .alert(isPresented: $longTermButtonDisabled) {
-                                Alert(title: Text("No free spaces"), message: Text("All long term and short term parking spaces are booked."))}
+                            
                         } else {
                             Text("Loading parking spot data...")
                         }
@@ -119,25 +112,21 @@ struct Home: View {
             } .task {
                 await parkingSpaceModel.fetchParkingSpaceCounts()
                 
+                if parkingSpaceModel.dataIsLoaded {
+                    freeNormalParkingSpaces = parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces
+                    freeReservedParkingSpaces = parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces
+                }
             }
         }
     }
     
     func checkAvailability(){
-        if parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces == 4 {
+        if parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces <= 4 {
             shortTermButtonDisabled = true
             
         } else {
             shortTermButtonDisabled = false
         }
-        
-        if (parkingSpaceModel.parkingSpaces.freeNormalParkingSpaces == 4) && (parkingSpaceModel.parkingSpaces.freeReservedParkingSpaces == 0) {
-            longTermButtonDisabled = true
-            
-        } else {
-            longTermButtonDisabled = false
-        }
-        
     }
 }
 
