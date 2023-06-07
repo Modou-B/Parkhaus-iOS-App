@@ -67,7 +67,7 @@ struct LoginShortTermParker: View {
                         Spacer()
                             .frame(height: 30)
                      
-                        Button("Login") {
+                        Button("CheckIn") {
                             checkLicenseIsEmpty(licensePlate: licensePlate)
                             
                             Task {
