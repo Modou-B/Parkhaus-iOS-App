@@ -14,8 +14,6 @@ struct CheckInTicket: View {
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
     @AppStorage("step") var stepId: Int?
- 
-    
     
     var body: some View {
             ZStack {

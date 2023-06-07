@@ -32,7 +32,8 @@ class ParkingSpotsModel: ObservableObject {
         guard let url = URL(string: self.parkingSpotsUrl) else {
             return
         }
-
+ 
+        print(url)
         do {
             let (responseData, _) = try await URLSession.shared.data(from: url)
             
@@ -42,7 +43,7 @@ class ParkingSpotsModel: ObservableObject {
         
             dataIsLoaded = true
         } catch {
-            print("Invalid Response Data")
+            print("Invalid Response Dataasdasd")
         }
     }
 }

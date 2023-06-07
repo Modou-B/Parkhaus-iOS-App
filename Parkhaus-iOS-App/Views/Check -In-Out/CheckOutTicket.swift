@@ -15,6 +15,8 @@ struct CheckOutTicket: View {
     
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
+    @AppStorage("isShortTermParker") var isShortTermParker: Bool?
+    @AppStorage("isLongTermParker") var isLongTermParker: Bool?
     @AppStorage("step") var stepId: Int?
     @AppStorage("payment") var payment: String?
     
@@ -101,6 +103,8 @@ struct CheckOutTicket: View {
                                 let jsonString = String(data: jsonData, encoding: .utf8)!
                                 payment = jsonString
                                 stepId = 1
+                                isShortTermParker = false
+                                isLongTermParker = false
                             }
                         }
                         .foregroundColor(.white)

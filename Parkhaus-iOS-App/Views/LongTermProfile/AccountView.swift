@@ -13,7 +13,11 @@ struct AccountView: View {
 
     @StateObject var checkInApi = CheckInApi()
     @StateObject var accountOverviewApi = AccountOverviewApi()
+    @State private var longTermButtonDisabled = false
     
+    @AppStorage("freeNormalParkingSpaces") var freeNormalParkingSpaces: Int?
+    @AppStorage("freeReservedParkingSpaces") var freeReservedParkingSpaces: Int?
+    @AppStorage("isLongTermParker") var isLongTermParker: Bool?
     @AppStorage("ticket") var ticket: String?
     @AppStorage("loginIdentifier") var loginIdentifier: String?
     @AppStorage("step") var stepId: Int?
@@ -73,19 +77,26 @@ struct AccountView: View {
                             
                             Button("CheckIn") {
                                 Task {
-                                    let loginIdentifier = loginIdentifier ?? ""
-                                    await checkInApi.checkInLongTermParker(licensePlate: licensePlate, identifier: loginIdentifier)
-                                    
-                                    let jsonData = try JSONEncoder().encode(checkInApi.ticket)
-                                    let jsonString = String(data: jsonData, encoding: .utf8)!
-                                    ticket = jsonString
+                                    checkAvailability()
+                                    if longTermButtonDisabled == false {
+                                        let loginIdentifier = loginIdentifier ?? ""
+                                        await checkInApi.checkInLongTermParker(licensePlate: licensePlate, identifier: loginIdentifier)
+                                        
+                                        let jsonData = try JSONEncoder().encode(checkInApi.ticket)
+                                        let jsonString = String(data: jsonData, encoding: .utf8)!
+                                        ticket = jsonString
+                                        isLongTermParker = true
+                                    }
                                 }
                             }
                             .foregroundColor(.white)
                             .frame(width: 300, height: 50)
                             .background(Color.blue)
                             .cornerRadius(10)
-                            .navigationDestination(isPresented: $checkInApi.wasSuccessful) { ParkingSpaceGrid() }
+                            .navigationDestination(
+                                isPresented: $checkInApi.wasSuccessful) { ParkingSpaceGrid() }
+                                .alert(isPresented: $longTermButtonDisabled) {
+                                Alert(title: Text("No free spaces"), message: Text("No free parking spots are available"))}
                                 .disabled(licensePlate.isEmpty)
                             
                             Spacer()
@@ -242,6 +253,17 @@ struct AccountView: View {
         } // End NavigationStack
        
     } // End View
+    
+    func checkAvailability(){
+        if (freeNormalParkingSpaces ?? 0 <= 4)
+            && (freeReservedParkingSpaces ?? 0 == 0) {
+            longTermButtonDisabled = true
+            
+        } else {
+            longTermButtonDisabled = false
+        }
+        
+    }
 }
 
 struct AccountView_Previews: PreviewProvider {

@@ -18,6 +18,8 @@ struct CheckOutPayment: View {
     
     @AppStorage("ticket") var ticket: String?
     @AppStorage("parkingSpotId") var id: Int?
+    @AppStorage("isShortTermParker") var isShortTermParker: Bool?
+    @AppStorage("isLongTermParker") var isLongTermParker: Bool?
     @AppStorage("step") var stepId: Int?
     @AppStorage("payment") var payment: String?
     
@@ -79,7 +81,8 @@ struct CheckOutPayment: View {
                         .frame(height: 50)
                     
                     VStack(alignment: .center) {
-                        Text("PAYMENT AMOUNT: \(paymentStruct.amount ?? 0)")
+                        
+                        Text("PAYMENT AMOUNT: \(formatPaymentAmount(amount: paymentStruct.amount ?? 0.00))")
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                             .foregroundColor(Color.black.opacity(0.7))
                         
@@ -114,6 +117,8 @@ struct CheckOutPayment: View {
                             let jsonString = String(data: jsonData, encoding: .utf8)!
                             payment = jsonString
                             stepId = 1
+                            isShortTermParker = false
+                            isLongTermParker = false
                         }
                     }
                     .foregroundColor(.white)
@@ -137,6 +142,13 @@ struct CheckOutPayment: View {
         catch {
             print("Data cannont be loaded")
         }
+    }
+    
+    private func formatPaymentAmount(amount: Float) -> String {
+        let formatter = NumberFormatter()
+           formatter.maximumFractionDigits = 2
+
+        return formatter.string(from: amount as NSNumber) ?? "\(amount)"
     }
 }
 

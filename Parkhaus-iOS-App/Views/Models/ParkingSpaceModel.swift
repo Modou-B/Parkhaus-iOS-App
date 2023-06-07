@@ -30,7 +30,7 @@ class ParkingSpaceModel: ObservableObject {
             parkingSpaces = try JSONDecoder().decode(ParkingSpaces.self, from: responseData)
             dataIsLoaded = true
         } catch {
-            print("Invalid Response Data")
+            print("Invalid Response Data333")
         }
     }
 }
