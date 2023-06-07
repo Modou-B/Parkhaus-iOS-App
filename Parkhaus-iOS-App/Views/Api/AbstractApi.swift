@@ -14,7 +14,6 @@ class AbstractApi: ObservableObject {
             return nil
         }
        
-        print(body)
         var request = URLRequest(url: url)
         request.httpMethod = method
         
