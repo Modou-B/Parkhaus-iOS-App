@@ -96,6 +96,15 @@ struct LoginLongTermParker: View {
                     .background(Color.blue)
                     .cornerRadius(10)
                     .navigationDestination(isPresented: $wasAuthenticationSuccessfull) { AccountView() }
+                    
+                    
+                    Button("Back") {
+                        stepId = 1
+                        }
+                    .foregroundColor(.black)
+                    .frame(width: 300, height: 50)
+                    .background(Color.gray.opacity(0.8))
+                    .cornerRadius(10)
                 }
                 .onAppear {
                     stepId = 2

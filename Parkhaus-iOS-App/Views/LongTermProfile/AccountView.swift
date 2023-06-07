@@ -78,9 +78,6 @@ struct AccountView: View {
                             Button("CheckIn") {
                                 Task {
                                     checkAvailability()
-                                    if longTermButtonDisabled {
-                                        stepId = 1
-                                    }
                                     if longTermButtonDisabled == false {
                                         let loginIdentifier = loginIdentifier ?? ""
                                         await checkInApi.checkInLongTermParker(licensePlate: licensePlate, identifier: loginIdentifier)
@@ -104,7 +101,15 @@ struct AccountView: View {
                                 .disabled(licensePlate.isEmpty)
                             
                             Spacer()
-                                .frame(height: 30)
+                                .frame(height: 10)
+                            
+                            Button("Logout") {
+                                stepId = 1
+                                }
+                            .foregroundColor(.black)
+                            .frame(width: 300, height: 50)
+                            .background(Color.gray.opacity(0.8))
+                            .cornerRadius(10)
                             
                         } // End VStack
                         .onAppear {
